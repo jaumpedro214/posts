@@ -19,17 +19,16 @@ A list of all my posts and personal projects
 <tbody>
   <tr>
     <td>
-      This is an example
+      Creating a Text Preprocessing Microservice with FastAPI
     </td>
     <td align="center">
-      <a href="https://github.com/jaumpedro214/posts">🔗</a>
     </td>
     <td>
-      <img src="https://img.shields.io/static/v1?label=&message=python&color=black&style=flat&logo=PYTHON"/> 
-      <img src="https://img.shields.io/static/v1?label=&message=docker&color=white&style=flat&logo=DOCKER"/> 
+      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/> 
+      <img src="https://img.shields.io/static/v1?label=&message=FastAPI&color=089484&style=flat&logo=FASTAPI&logoColor=white"/> 
     </td>
     <td align="center">
-      <a href="https://github.com/jaumpedro214/posts">🔗</a>
+      <a href="https://github.com/jaumpedro214/posts/tree/main/text_pre_fast_api">🔗</a>
     </td>
   </tr>
   <tr>
