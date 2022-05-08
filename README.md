@@ -64,7 +64,7 @@ A list of all my posts and personal projects
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/jaumpedro214/br-laws-clustering-nlp">🔗</a>
+      -
     </td>
   </tr>
 </tbody>
