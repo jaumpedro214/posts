@@ -22,6 +22,7 @@ A list of all my posts and personal projects
       Creating a Text Preprocessing Microservice with FastAPI
     </td>
     <td align="center">
+      <a href="https://towardsdatascience.com/building-a-text-preprocessing-microservice-with-fastapi-ca7912050ba">🔗</a>
     </td>
     <td>
       <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/> 
