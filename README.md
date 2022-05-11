@@ -19,20 +19,53 @@ A list of all my posts and personal projects
 <tbody>
   <tr>
     <td>
-      This is an example
+      Creating a Text Preprocessing Microservice with FastAPI
     </td>
     <td align="center">
-      <a href="https://github.com/jaumpedro214/posts">🔗</a>
     </td>
     <td>
-      <img src="https://img.shields.io/static/v1?label=&message=python&color=black&style=flat&logo=PYTHON"/> 
-      <img src="https://img.shields.io/static/v1?label=&message=docker&color=white&style=flat&logo=DOCKER"/> 
+      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/> 
+      <a href="https://fastapi.tiangolo.com/">
+        <img src="https://img.shields.io/static/v1?label=&message=FastAPI&color=089484&style=flat&logo=FASTAPI&logoColor=white"/>
+      </a>
     </td>
     <td align="center">
-      <a href="https://github.com/jaumpedro214/posts">🔗</a>
+      <a href="https://github.com/jaumpedro214/posts/tree/main/text_pre_fast_api">🔗</a>
     </td>
   </tr>
   <tr>
+    <td>
+      Brazilian Laws analysis with TF-IDF and K-Means
+    </td>
+    <td align="center">
+      <a href="https://joaopedro214.medium.com/clustering-nlp-brazilian-laws-analysis-with-tf-idf-and-k-means-c0495c7c9c5f">🔗</a>
+    </td>
+    <td>
+      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+      <a href="https://scikit-learn.org/stable/modules/clustering.html#clustering">
+        <img src="https://img.shields.io/static/v1?label=SKLearn&labelColor=blue&message=Clustering&color=orange&style=flat&logo=SCIKITLEARN&logoColor=white"/>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/br-laws-clustering-nlp">🔗</a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Understanding Topic Coherence Measures
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/understanding-topic-coherence-measures-4aa41339634c">🔗</a>
+    </td>
+    <td>
+      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+      <a href="https://scikit-learn.org/stable/modules/clustering.html#clustering">
+        <img src="https://img.shields.io/static/v1?label=NLP&labelColor=&message=Theory&color=c20000&style=flat&logo=GENSIM&logoColor=white"/>
+      </a>
+    </td>
+    <td align="center">
+      -
+    </td>
   </tr>
 </tbody>
 </table>
