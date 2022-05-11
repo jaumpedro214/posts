@@ -1,4 +1,3 @@
-from cgitb import text
 from fastapi import FastAPI
 
 from models import PreprocessingRequest

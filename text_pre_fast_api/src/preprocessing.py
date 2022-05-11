@@ -12,7 +12,7 @@ class RegExRemovePunkt(BaseRegExPreprocessing):
     replace_token = ""
 
 class RegExReplaceNumberLike(BaseRegExPreprocessing):
-    regex = r"(:?\d+.)+"
+    regex = r"(?:\d+.)+"
     replace_token = " <NUMBER_LIKE> "
 
 class RegExReplaceMoney(BaseRegExPreprocessing):
@@ -25,7 +25,7 @@ class RegExReplacePhone(BaseRegExPreprocessing):
     replace_token = " <PHONE_NUMBER> "
 
 class RegExReplaceEMail(BaseRegExPreprocessing):
-    regex = r"\w+\@\w+(:?\.\w+)+"
+    regex = r"\w+\@\w+(?:\.\w+)+"
     replace_token = " <EMAIL> "
 
 class Lowercase():
