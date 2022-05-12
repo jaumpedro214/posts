@@ -2,7 +2,7 @@ version: '3'
 services:
   text_preprocessing_api:
     container_name: TextPreApi
-    build: .
+    build: ./text_preprocessing/
     volumes:
       - ./text_preprocessing:/code
     ports:
