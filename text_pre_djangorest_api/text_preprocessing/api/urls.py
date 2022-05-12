@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path("regex/<str:name>/", views.RegexRetrieveUpdateAPIView.as_view()),
     path("regex/", views.RegexCreateAPIView.as_view()),
+    path("multiple/regex/", views.RegexMultipleAPIView.as_view()),
 ]
