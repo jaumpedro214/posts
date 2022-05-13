@@ -1,9 +1,15 @@
-from rest_framework.validators import UniqueTogetherValidator
 from rest_framework import serializers
 from .models import RegexEntry
 
-class RegexMultipleSerializer(serializers.Serializer):
-    names = serializers.ListField( child=serializers.CharField() )
+
+class RegexProcessingRequestSerializer(serializers.Serializer):
+    steps = serializers.ListField(child=serializers.CharField())
+    text = serializers.CharField()
+
+
+class RegexProcessingResponseSerializer(serializers.Serializer):
+    text = serializers.CharField()
+    processed_text = serializers.CharField()
 
 
 class RegexSerializer(serializers.ModelSerializer):
