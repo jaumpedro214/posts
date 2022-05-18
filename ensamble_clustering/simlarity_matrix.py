@@ -19,7 +19,7 @@ class ClusterSimilarityMatrix():
         return (cdist(y_reshaped, y_reshaped, 'cityblock')==0).astype(int)
 
 
-class EnsambleCustering():
+class EnsembleCustering():
     def __init__(self, base_estimators, aggregator, distances=False):
         self.base_estimators = base_estimators
         self.aggregator = aggregator
