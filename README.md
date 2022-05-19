@@ -68,5 +68,21 @@ A list of all my posts and personal projects
       -
     </td>
   </tr>
+  
+  <tr>
+    <td>
+      How to ensemble Clustering Algorithms
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/how-to-ensemble-clustering-algorithms-bf78d7602265">🔗</a>
+    </td>
+    <td>
+      <a href="https://scikit-learn.org/stable/modules/clustering.html#clustering">
+        <img src="https://img.shields.io/static/v1?label=SKLearn&labelColor=blue&message=Clustering&color=orange&style=flat&logo=SCIKITLEARN&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts/tree/main/ensamble_clustering">🔗</a>
+    </td>
+  </tr>
 </tbody>
 </table>
