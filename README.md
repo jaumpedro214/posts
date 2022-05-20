@@ -1,6 +1,14 @@
 # Posts
-A list of all my posts and personal projects
+A list of (some of) my posts and personal projects. 
 
+The objective of this repository is to put together in a single page my main posts and projects.
+I prioritize posts written in English (and that I'm proud of 😁).
+
+I mainly write about Machine Learning and Data Science on Medium.
+You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> to view all my posts.
+
+
+## The list
 <table style="undefined;table-layout: fixed; width: 636px">
 <colgroup>
   <col style="width: 358px">
