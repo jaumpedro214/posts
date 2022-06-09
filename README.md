@@ -92,5 +92,20 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://github.com/jaumpedro214/posts/tree/main/ensamble_clustering">🔗</a>
     </td>
   </tr>
+  
+  <tr>
+    <td>
+      Improve Your Data Preprocessing with ColumnTransformer and Pipelines
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/improve-your-data-preprocessing-with-columntransformer-and-pipelines-b6ff7edd2f77">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=SKLearn&labelColor=blue&message=Pipeline&color=orange&style=flat&logo=SCIKITLEARN&logoColor=white"/>
+    </td>
+    <td align="center">
+      -
+    </td>
+  </tr>
 </tbody>
 </table>
