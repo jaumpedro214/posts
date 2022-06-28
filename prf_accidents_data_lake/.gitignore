@@ -1,2 +1,4 @@
 src/notebooks/
-src/data/*
+src/data/*.csv
+/mongodb/data/
+/postgres/data/

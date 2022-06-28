@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  mongo-db:
+    image: mongo
+    container_name: mongo
+    hostname: mongo_host
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: 123
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./mongodb/data:/data/db"
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo_host
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mongouser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 123
+      #ME_CONFIG_BASICAUTH_USERNAME: meuser
+      #ME_CONFIG_BASICAUTH_PASSWORD: 123
+    depends_on:
+      - mongo-db
+  postgres-db:
+    build: ./postgres
+    container_name: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: PRFACIDENTES
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - "./postgres/data:/var/lib/postgresql/data"
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
