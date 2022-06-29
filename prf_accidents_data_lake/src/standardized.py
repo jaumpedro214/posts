@@ -65,7 +65,7 @@ def transform_estado_fisico(estado_fisico):
     # Remove trailing spaces
     estado_fisico = normalize_text(estado_fisico)
     
-    if estado_fisico in ["(null)", "nan"]:
+    if estado_fisico in ["(null)", "nan", "none"]:
         return MISSING_VALUE_TOKEN
     
     estado_fisico = regex_replacer(
@@ -81,6 +81,9 @@ def transform_estado_fisico(estado_fisico):
     return estado_fisico
 
 def transform_causa_acidente(causa_acidente):
+    
+    if causa_acidente==MISSING_VALUE_TOKEN:
+        return MISSING_VALUE_TOKEN
     
     causa_acidente = normalize_text(causa_acidente)
     
@@ -142,6 +145,9 @@ def transform_uso_solo(uso_solo):
 def transform_tipo_veiculo(tipo_veiculo):
     tipo_veiculo = normalize_text(tipo_veiculo)
     
+    if tipo_veiculo == MISSING_VALUE_TOKEN:
+        return MISSING_VALUE_TOKEN
+    
     tipo_veiculo = regex_replacer(
         tipo_veiculo,
         {
@@ -156,6 +162,9 @@ def transform_tipo_veiculo(tipo_veiculo):
 
 def transform_condicao_metereologica(condicao_metereologica):
     condicao_metereologica = normalize_text(condicao_metereologica)
+    if condicao_metereologica == MISSING_VALUE_TOKEN:
+        return MISSING_VALUE_TOKEN
+    
     condicao_metereologica = regex_replacer(
         condicao_metereologica,
         {
@@ -168,15 +177,15 @@ def transform_condicao_metereologica(condicao_metereologica):
     return condicao_metereologica
 
 def transform_sentido_via(sentido_via):
-    sentido_via = normalize_text(sentido_via)
-    return sentido_via
+    return normalize_text(sentido_via)
 
 def transform_tipo_envolvido(tipo_envolvido):
-    tipo_envolvido = normalize_text(tipo_envolvido)
-    return tipo_envolvido
+    return normalize_text(tipo_envolvido)
 
 def transform_dia_semana(dia_semana):
     dia_semana = normalize_text(dia_semana)
+    if dia_semana == MISSING_VALUE_TOKEN:
+        return MISSING_VALUE_TOKEN
     
     dia_semana = regex_replacer(
         dia_semana,
@@ -249,7 +258,7 @@ def transform_id_veiculo(id_veiculo):
     id_veiculo = normalize_text(id_veiculo)
     
     if id_veiculo == MISSING_VALUE_TOKEN:
-        return id_veiculo
+        return MISSING_VALUE_TOKEN
     
     id_veiculo = id_veiculo.replace('.', '')
     return id_veiculo
