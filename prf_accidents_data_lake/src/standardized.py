@@ -125,6 +125,25 @@ def transform_causa_acidente(causa_acidente):
     return causa_acidente
 
 def transform_tipo_acidente(tipo_acidente):
+    if tipo_acidente==MISSING_VALUE_TOKEN:
+        return MISSING_VALUE_TOKEN
+    
+    tipo_acidente = regex_replacer(
+        {
+            "atropelamento de pessoa":"atropelamento",
+            "atropelamento de pedestre":"atropelamento",
+            
+            "colisão com objeto estático":"colisão com objeto",
+            "colisão com objeto fixo":"colisão com objeto",
+            "colisão com objeto móvel":"colisão com objeto",
+            "colisão com objeto em movimento":"colisão com objeto",
+            
+            "danos eventuais":"eventos atípicos",
+            
+            "saída de leito carroçável":"saída de pista",
+        }
+    )
+    
     return normalize_text(tipo_acidente)
     
 def transform_classificacao_acidente(classificacao_acidente):
@@ -234,6 +253,14 @@ def transform_data(data_inversa, horario):
     return MISSING_VALUE_TOKEN
     
 def transform_br(br):
+    if br == MISSING_VALUE_TOKEN:
+        return MISSING_VALUE_TOKEN
+    
+    try:
+        br = int( float(br) ) # convert to int
+    except:
+        pass
+    
     return normalize_text(br)
 
 def transform_km(km):

@@ -42,3 +42,16 @@ services:
     restart: always
     ports:
       - 8080:8080
+  metabase:
+    image: metabase/metabase:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres-db
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_NAME=metabase
+      - MB_DB_HOST=postgres
+      - MB_DB_PORT=5432
+      - MB_DB_USER=PRFACIDENTES
+      - MB_DB_PASS=123
