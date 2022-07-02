@@ -1,0 +1,24 @@
+# new_table/collection_name:
+#   original_field_name: type
+dimensions:
+  lugar: 
+    uf: "VARCHAR(2)"
+    municipio: "VARCHAR(100)"
+  causa_acidente:
+    causa_acidente: "VARCHAR(100)"
+  br:
+    br: "VARCHAR(5)"
+  tipo_acidente:
+    tipo_acidente: "VARCHAR(100)"
+  fase_dia:
+    fase_dia: "VARCHAR(100)"
+  condicao_metereologica:
+    condicao_metereologica: "VARCHAR(100)"
+facts:
+  name: vitimas_acidentes_automovel
+  fields:
+    # All above dimensions +
+    # Metrics & facts
+    km: "DECIMAL(5,1)"
+    data: "TIMESTAMP"
+    estado_fisico: "VARCHAR(100)"
