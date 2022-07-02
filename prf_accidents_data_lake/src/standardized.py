@@ -127,8 +127,10 @@ def transform_causa_acidente(causa_acidente):
 def transform_tipo_acidente(tipo_acidente):
     if tipo_acidente==MISSING_VALUE_TOKEN:
         return MISSING_VALUE_TOKEN
+    tipo_acidente = normalize_text(tipo_acidente)
     
     tipo_acidente = regex_replacer(
+        tipo_acidente,
         {
             "atropelamento de pessoa":"atropelamento",
             "atropelamento de pedestre":"atropelamento",
@@ -144,7 +146,7 @@ def transform_tipo_acidente(tipo_acidente):
         }
     )
     
-    return normalize_text(tipo_acidente)
+    return tipo_acidente
     
 def transform_classificacao_acidente(classificacao_acidente):
     return normalize_text(classificacao_acidente)
@@ -257,7 +259,7 @@ def transform_br(br):
         return MISSING_VALUE_TOKEN
     
     try:
-        br = int( float(br) ) # convert to int
+        br = f'{int(float(br)):03}' # convert to int
     except:
         pass
     
