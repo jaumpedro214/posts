@@ -107,5 +107,23 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       -
     </td>
   </tr>
+  
+  <tr>
+    <td>
+      Creating a Simple ETL Pipeline With Apache Spark
+    </td>
+    <td align="center">
+      <a href="https://joaopedro214.medium.com/creating-a-simple-etl-pipeline-with-apache-spark-825cc17c8cf6">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=Apache Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Postgres&color=4169E1&style=flat&logo=POSTGRESQL&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts/tree/main/etl_spark_scholar_census">🔗</a>
+    </td>
+  </tr>
+  
 </tbody>
 </table>
