@@ -1,0 +1,96 @@
+wget https://download.inep.gov.br/dados_abertos/microdados_censo_escolar_2021.zip -P ./data
+
+
+TP_LOCALIZACAO_DIFERENCIADA = 0
+
+-------------------------- Fatos
+NU_ANO_CENSO
+
+-------------------------- Dimensoes
+NO_UF	Nome da Unidade da Federação
+SG_UF	Sigla da Unidade da Federação
+CO_UF	Código da UF
+NO_MUNICIPIO	Nome do Município
+CO_MUNICIPIO	Código do Município
+
+TP_DEPENDENCIA	Dependência Administrativa  # 1 - Federal, 2 - Estadual, 3 - Municipal, 4 - Privada
+TP_LOCALIZACAO  Localização                 # 1 - Urbana,  2 - Rural
+IN_AGUA_POTAVEL
+IN_ENERGIA_INEXISTENTE
+IN_ESGOTO_INEXISTENTE
+IN_BANHEIRO
+IN_BIBLIOTECA
+IN_REFEITORIO
+IN_COMPUTADOR
+IN_INTERNET
+IN_EQUIP_NENHUM	Nenhum dos equipamentos listados para uso técnico e administrativo - Antena parabólica, Computador, Copiadora, Impressora, Impressora Multifuncional ou Scanner
+
+-------------------------- Métricas
+QT_DOC_BAS	Número de Docentes da Educação Básica
+QT_DOC_INF	Número de Docentes da Educação Infantil
+QT_DOC_FUND	Número de Docentes do Ensino Fundamental
+QT_DOC_MED	Número de Docentes do Ensino Médio
+
+QT_MAT_BAS	Número de Matrículas na Educação Básica (TOTAL)
+QT_MAT_INF	Número de Matrículas na Educação Infantil
+QT_MAT_FUND	Número de Matrículas no Ensino Fundamental
+QT_MAT_MED	Número de Matrículas no Ensino Médio
+
+QT_MAT_BAS_ND	    Número de Matrículas na Educação Básica - Cor/Raça Não Declarada
+QT_MAT_BAS_BRANCA	Número de Matrículas na Educação Básica - Cor/Raça Branca
+QT_MAT_BAS_PRETA	Número de Matrículas na Educação Básica - Cor/Raça Preta
+QT_MAT_BAS_PARDA	Número de Matrículas na Educação Básica - Cor/Raça Parda
+QT_MAT_BAS_AMARELA	Número de Matrículas na Educação Básica - Cor/Raça Amarela
+QT_MAT_BAS_INDIGENA	Número de Matrículas na Educação Básica - Cor/Raça Indígena
+
+QT_DESKTOP_ALUNO	Quantidade de computadores em uso pelos alunos - Computador de mesa (desktop)
+QT_COMP_PORTATIL_ALUNO	Quantidade de computadores em uso pelos alunos - Computador portátil
+
+-------------------------- Painéis e análises
+
+> Distribucional - Matrículas
+    Número total de matrículas por ano
+    Número total de matrículas do Ens. Infantil/Fundamental/Médio por ano
+    Número total de matrículas por ano por dependência administrativa (TP_DEPENDENCIA)
+    Número total de matrículas por ano por localização (TP_LOCALIZACAO)
+    
+    >> Em 2021 (útimo ano da pesquisa, extrair automaticamente)
+        Total de matrículas (CARD)
+        Total de matrículas do Ens. Infantil/Fundamental/Médio (CARDs)
+
+        Número total de matrículas por estado (CO_UF, Georeferenciada)
+        Top 10 muncípios (CO_MUNICIPIO) com mais matrículas
+
+> Distribucional - Cor/Raça em 2021
+    Taxa matrículas de cada cor/raça
+    Número total de matrículas por cor/raça por dependência administrativa (TP_DEPENDENCIA) - Matriz
+
+
+> Estrutural - Água, Energia e Higiene
+    IN_AGUA_POTAVEL
+    IN_ENERGIA_INEXISTENTE
+    IN_BANHEIRO
+
+    Taxa de escolas sem banheiro por ano
+    Taxa de escolas sem banheiro em 2021 por TP_DEPENDENCIA
+
+    Taxa de escolas sem agua potavel por ano
+    Taxa de escolas sem agua potavel em 2021 por TP_DEPENDENCIA
+
+    Taxa de escolas sem energia por ano
+    Taxa de escolas sem energia em 2021 por TP_DEPENDENCIA
+
+    >> Em 2021
+        Condições ideais - Funil
+        Taxa de escolas Condições ideais por TP_DEPENDENCIA
+
+
+> Estrutural - internet no Ens. Médio
+    Acesso à internet nas escolas
+
+    Taxa de escolas com acesso a internet por ano
+
+    Taxa de matrículas em escolas sem acesso a internet por ano
+    Taxa de matrículas em escolas sem acesso a internet por ano por TP_DEPENDENCIA
+
+
