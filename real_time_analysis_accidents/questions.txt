@@ -1,0 +1,17 @@
+# id, pesid, data_inversa, horario
+
+Aswer the questions:
+
+1. Number of people involved in accidents in each year
+2. Counts and percent of unhurt, lighly injured, strongly injured and dead
+3. Number of people involved in accidents in each sex
+4. Death rate in each accidents type
+
+
+Variables & transformations needed:
+- _id
+- data_inversa
+- ilesos, feridos_leves, feridos_graves, mortos
+- sexo
+  Encoded in different ways, 
+- tipo_acidente
