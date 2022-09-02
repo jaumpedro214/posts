@@ -13,5 +13,4 @@ Variables & transformations needed:
 - data_inversa
 - ilesos, feridos_leves, feridos_graves, mortos
 - sexo
-  Encoded in different ways, 
 - tipo_acidente

@@ -99,8 +99,34 @@ SELECT
             '[^mf]', 
             'o'
         ),
-        'o'
+        'o' 
     )
-    as sex 
+    AS sex,
+
+    CASE
+        WHEN tipo_acidente='Atropelamento de Pessoa' THEN 'run-over'
+        WHEN tipo_acidente='Atropelamento de Pedestre' THEN 'run-over'
+        WHEN tipo_acidente='Colisão com objeto estático' THEN 'collision with object'
+        WHEN tipo_acidente='Colisão com objeto fixo' THEN 'collision with object'
+        WHEN tipo_acidente='Colisão com objeto móvel' THEN 'collision with object'
+        WHEN tipo_acidente='Colisão com objeto em movimento' THEN 'collision with object'
+        WHEN tipo_acidente='saída de leito carroçável' THEN 'road exit'
+        WHEN tipo_acidente='Saída de pista' THEN 'road exit'
+        WHEN tipo_acidente='Capotamento' THEN 'rollover'
+        WHEN tipo_acidente='Incêndio' THEN 'fire'
+        WHEN tipo_acidente='Derramamento de carga' THEN 'cargo spill'
+        WHEN tipo_acidente='Atropelamento de Animal' THEN 'animal run-over'
+        WHEN tipo_acidente='Colisão traseira' THEN 'rear collision'
+        WHEN tipo_acidente='Colisão frontal' THEN 'front collision'
+        WHEN tipo_acidente='Colisão lateral' THEN 'lateral collision'
+        WHEN tipo_acidente='Colisão transversal' THEN 'cross collision'
+        WHEN tipo_acidente='Engavetamento' THEN 'traffic jam'
+        ELSE 'other'
+    END AS accident_type,
+
+    ilesos AS unhurt,
+    feridos_leves AS lighly_injured,
+    feridos_graves AS strongly_injured,
+    mortos AS dead
 FROM 
 accidents_bronze_stream;
