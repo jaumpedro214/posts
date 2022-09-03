@@ -88,8 +88,7 @@ FROM accidents_bronze_stream;
 
 -- Create Bronze to Silver Stream
 
-SELECT
-    NULLIF(
+NULLIF(
         REGEXP_REPLACE(
             SUBSTRING(
                 LCASE(sexo), 
@@ -101,6 +100,12 @@ SELECT
         ),
         'o' 
     )
+
+SELECT
+    REGEXP_EXTRACT(
+        '^m|^f', 
+        LCASE(sexo)
+    )
     AS sex,
 
     CASE
@@ -110,7 +115,8 @@ SELECT
         WHEN tipo_acidente='Colisão com objeto fixo' THEN 'collision with object'
         WHEN tipo_acidente='Colisão com objeto móvel' THEN 'collision with object'
         WHEN tipo_acidente='Colisão com objeto em movimento' THEN 'collision with object'
-        WHEN tipo_acidente='saída de leito carroçável' THEN 'road exit'
+        WHEN tipo_acidente='Tombamento' THEN 'tipping'
+        WHEN tipo_acidente='Saída de leito carroçável' THEN 'road exit'
         WHEN tipo_acidente='Saída de pista' THEN 'road exit'
         WHEN tipo_acidente='Capotamento' THEN 'rollover'
         WHEN tipo_acidente='Incêndio' THEN 'fire'
@@ -127,6 +133,10 @@ SELECT
     ilesos AS unhurt,
     feridos_leves AS lighly_injured,
     feridos_graves AS strongly_injured,
-    mortos AS dead
-FROM 
+    mortos AS dead,
+
+    REGEXP_EXTRACT('[0-9]{4}', data_inversa)
+    AS accident_year
+
+FROM
 accidents_bronze_stream;
