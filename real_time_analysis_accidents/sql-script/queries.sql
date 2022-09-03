@@ -69,20 +69,7 @@ WITH (
     value_format = 'avro'
 );
 
-
-SELECT
-    _id, 
-    data_inversa, 
-    ilesos, 
-    feridos_leves, 
-    feridos_graves, 
-    mortos, 
-    sexo, 
-    tipo_acidente
-FROM accidents_bronze_stream;
-
-
--- Create Bronze to Silver Stream
+-- Bronze to Silver transformation stream
 CREATE STREAM accidents_bronze_to_silver
 WITH (
     value_format = 'avro'
@@ -93,7 +80,7 @@ SELECT
         '^m|^f', 
         LCASE(sexo)
     )
-    AS sex,
+    AS gender,
 
     CASE
         WHEN tipo_acidente='Atropelamento de Pessoa' THEN 'run-over'
@@ -129,7 +116,7 @@ FROM
 accidents_bronze_stream;
 
 
--- Mongo Sink connector
+-- Mongo Sink connector -> Silver Layer
 CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
     'connector.class'='com.mongodb.kafka.connect.MongoSinkConnector',
     'tasks.max'='1',
@@ -141,3 +128,20 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
 
     'pk.fields'='_ID'
 );
+
+CREATE TABLE GENDER_DIM_1 
+AS 
+SELECT
+    gender,
+    max(1),
+    CASE 
+        WHEN gender='f' THEN 0
+        WHEN gender='m' THEN 1
+        ELSE 3
+    END AS _id
+FROM
+    accidents_bronze_to_silver
+GROUP BY gender
+EMIT CHANGES
+;
+
