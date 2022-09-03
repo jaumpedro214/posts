@@ -2,8 +2,7 @@
 
 SET 'auto.offset.reset'='earliest';
 
-
--- Mongodb Source Connector
+-- Mongodb Source Connector -> Bronze Layer
 CREATE SOURCE CONNECTOR accidents_bronze_source_connector WITH (
     'connector.class' = 'io.debezium.connector.mongodb.MongoDbConnector',
     'mongodb.hosts' = 'mongo:27017',
@@ -23,10 +22,7 @@ CREATE SOURCE CONNECTOR accidents_bronze_source_connector WITH (
 -- Show the connector
 DESCRIBE CONNECTOR accidents_bronze_source_connector;
 
--- 'errors.tolerance'='all',
--- 'errors.deadletterqueue.topic.name'='dlq_accidents_bronze',
--- 'errors.deadletterqueue.topic.replication.factor'=1
-
+-- Bronze Layer stream
 CREATE STREAM accidents_bronze_stream
 (
      _ID                      VARCHAR(STRING)
@@ -73,7 +69,6 @@ WITH (
     value_format = 'avro'
 );
 
-SELECT * FROM accidents_bronze_stream;
 
 SELECT
     _id, 
@@ -86,22 +81,14 @@ SELECT
     tipo_acidente
 FROM accidents_bronze_stream;
 
+
 -- Create Bronze to Silver Stream
-
-NULLIF(
-        REGEXP_REPLACE(
-            SUBSTRING(
-                LCASE(sexo), 
-                0, 
-                1
-            ), 
-            '[^mf]', 
-            'o'
-        ),
-        'o' 
-    )
-
+CREATE STREAM accidents_bronze_to_silver
+WITH (
+    value_format = 'avro'
+) AS
 SELECT
+    _id as `_id`,
     REGEXP_EXTRACT(
         '^m|^f', 
         LCASE(sexo)
@@ -140,3 +127,17 @@ SELECT
 
 FROM
 accidents_bronze_stream;
+
+
+-- Mongo Sink connector
+CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
+    'connector.class'='com.mongodb.kafka.connect.MongoSinkConnector',
+    'tasks.max'='1',
+
+    'connection.uri'='mongodb://mongo:mongo@mongo:27017',
+    'database'='accidents',
+    'collection'='accidents_silver',
+    'topics'='ACCIDENTS_BRONZE_TO_SILVER',
+
+    'pk.fields'='_ID'
+);
