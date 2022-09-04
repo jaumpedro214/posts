@@ -1,8 +1,6 @@
-# id, pesid, data_inversa, horario
-
 Aswer the questions:
 
-1. Number of people involved in accidents in each year
+1. Number of people involved in accidents in each year in each month
 2. Counts and percent of unhurt, lighly injured, strongly injured and dead
 3. Number of people involved in accidents in each sex
 4. Death rate in each accidents type

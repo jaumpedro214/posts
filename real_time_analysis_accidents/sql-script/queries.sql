@@ -70,7 +70,7 @@ WITH (
 );
 
 -- Bronze to Silver transformation stream
-CREATE STREAM accidents_bronze_to_silver
+CREATE OR REPLACE STREAM accidents_bronze_to_silver
 WITH (
     value_format = 'avro'
 ) AS
@@ -109,8 +109,16 @@ SELECT
     feridos_graves AS strongly_injured,
     mortos AS dead,
 
-    REGEXP_EXTRACT('[0-9]{4}', data_inversa)
-    AS accident_year
+    CASE
+        WHEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
+        THEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd')
+        
+        WHEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yy') IS NOT NULL 
+        THEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yy')
+        
+        WHEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yyyy') IS NOT NULL 
+        THEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yyyy')
+    END AS `date`
 
 FROM
 accidents_bronze_stream;
@@ -129,19 +137,18 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
     'pk.fields'='_ID'
 );
 
-CREATE TABLE GENDER_DIM_1 
-AS 
+-- Checking all possible data formats
 SELECT
-    gender,
-    max(1),
-    CASE 
-        WHEN gender='f' THEN 0
-        WHEN gender='m' THEN 1
-        ELSE 3
-    END AS _id
-FROM
-    accidents_bronze_to_silver
-GROUP BY gender
-EMIT CHANGES
-;
+    CASE
+        WHEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
+        THEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd')
+        
+        WHEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yy') IS NOT NULL 
+        THEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yy')
+        
+        WHEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yyyy') IS NOT NULL 
+        THEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yyyy')
+    END AS `date`
+
+FROM ACCIDENTS_BRONZE_STREAM;
 
