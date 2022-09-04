@@ -21,6 +21,12 @@ cfg = rs.conf()
 cfg.members[0].host = "localhost:27017"
 rs.reconfig(cfg)
 
+Solution to the problem of defining the mongo documetn key in the sink connector
+https://github.com/hpgrahsl/kafka-connect-mongodb/issues/125
+https://github.com/hpgrahsl/kafka-connect-mongodb/issues/36
+https://www.mongodb.com/docs/kafka-connector/current/sink-connector/fundamentals/post-processors/#configure-the-document-id-adder-post-processor
+https://www.mongodb.com/docs/kafka-connector/current/sink-connector
+
 
 Problems encountered - Unable to create a table with a primary key from a field in the stream.
 https://stackoverflow.com/questions/62888881/tables-require-a-primary-key-when-create-a-table-with-kafka-topic
@@ -34,3 +40,16 @@ WITH (
 ERROR: duplicate columns 'SEX'
 
 https://developer.confluent.io/tutorials/credit-card-activity/confluent.html?_ga=2.44558243.668011660.1662140272-1727852891.1661062737#execute-ksqldb-code
+
+
+Understand why this is not working
+CASE
+    WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy') IS NOT NULL 
+    THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy')
+
+    WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy') IS NOT NULL 
+    THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy')
+    
+    WHEN PARSE_DATE(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
+    THEN PARSE_DATE(data_inversa, 'yyyy-MM-dd')
+END AS `date`

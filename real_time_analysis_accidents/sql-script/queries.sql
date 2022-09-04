@@ -2,6 +2,10 @@
 
 SET 'auto.offset.reset'='earliest';
 
+-- ==========================================================================
+-- ======================== BRONZE LAYER - Accidents ========================
+-- ==========================================================================
+
 -- Mongodb Source Connector -> Bronze Layer
 CREATE SOURCE CONNECTOR accidents_bronze_source_connector WITH (
     'connector.class' = 'io.debezium.connector.mongodb.MongoDbConnector',
@@ -71,6 +75,11 @@ WITH (
     value_format = 'avro'
 );
 
+
+-- ==========================================================================
+-- ======================== SILVER LAYER - Accidents ========================
+-- ==========================================================================
+
 -- Bronze to Silver transformation stream
 CREATE OR REPLACE STREAM accidents_bronze_to_silver
 WITH (
@@ -111,20 +120,19 @@ SELECT
     feridos_graves AS strongly_injured,
     mortos AS dead,
 
+    -- Check all possible data formats
     CASE
-        WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy') IS NOT NULL 
-        THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy')
-
-        WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy') IS NOT NULL 
+        WHEN LEN(REGEXP_EXTRACT('[0-9]{2}/[0-9]{2}/[0-9]{4}', data_inversa))>0 
         THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy')
-        
-        WHEN PARSE_DATE(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
+        WHEN LEN(REGEXP_EXTRACT('[0-9]{2}/[0-9]{2}/[0-9]{2}', data_inversa))>0 
+        THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy')
+        WHEN LEN(REGEXP_EXTRACT('[0-9]{4}-[0-9]{2}-[0-9]{2}', data_inversa))>0 
         THEN PARSE_DATE(data_inversa, 'yyyy-MM-dd')
+        ELSE NULL
     END AS `date`
 
 FROM
 accidents_bronze_stream;
-
 
 -- Mongo Sink connector -> Silver Layer
 CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
@@ -140,5 +148,74 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
 );
 
 
-SELECT * FROM 
+-- ==========================================================================
+-- ========================  GOLD LAYER - Accidents  ========================
+-- ==========================================================================
 
+-- Silver to Gold transformation stream : Monthly aggregation
+CREATE OR REPLACE TABLE accidents_silver_to_gold_table_2
+WITH (
+    value_format = 'avro'
+) AS
+SELECT 
+    FORMAT_DATE(`date`, 'yyyy-MM') AS `_id`,
+
+    -- Absolute numbers
+    COUNT(*) AS total_accidents,
+    SUM(unhurt) AS total_unhurt,
+    SUM(lighly_injured) AS total_lighly_injured,
+    SUM(strongly_injured) AS total_strongly_injured,
+    SUM(dead) AS total_dead,
+
+    -- percentual numbers
+    AVG(unhurt) * 100 AS percentual_unhurt,
+    AVG(lighly_injured) * 100 AS percentual_lighly_injured,
+    AVG(strongly_injured) * 100 AS percentual_strongly_injured,
+    AVG(dead) * 100 AS percentual_dead,
+
+    -- gender 
+    AVG(
+        CASE
+            WHEN gender='m' THEN 1
+            ELSE 0
+        END
+    ) AS percentual_male_gender,
+
+    AVG(
+        CASE
+            WHEN gender='f' THEN 1
+            ELSE 0
+        END
+    ) AS percentual_female_gender
+FROM
+    accidents_bronze_to_silver
+GROUP BY FORMAT_DATE(`date`, 'yyyy-MM')
+EMIT CHANGES;
+
+
+-- Mongo Sink connector -> Gold Layer : Monthly aggregation
+CREATE SINK CONNECTOR ACCIDENTS_GOLD_SINK WITH (
+    'topics'='ACCIDENTS_SILVER_TO_GOLD_TABLE_2',
+    
+    'connector.class'='com.mongodb.kafka.connect.MongoSinkConnector',
+    'tasks.max'='1',
+
+    'connection.uri'='mongodb://mongo:mongo@mongo:27017',
+    'database'='accidents',
+    'collection'='accidents_gold',
+    
+    'transforms'='WrapKey',
+    'transforms.WrapKey.type'='org.apache.kafka.connect.transforms.HoistField$Key',
+    'transforms.WrapKey.field'='_id',
+
+    'document.id.strategy'='com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInKeyStrategy',
+    'document.id.strategy.overwrite.existing'='true'
+);
+
+
+SELECT  
+    accident_type,
+    AVG(dead) AS death_rate
+FROM accidents_bronze_to_silver
+GROUP BY accident_type
+EMIT CHANGES;
