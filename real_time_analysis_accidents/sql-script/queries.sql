@@ -16,7 +16,9 @@ CREATE SOURCE CONNECTOR accidents_bronze_source_connector WITH (
     'transforms.unwrap.type' = 'io.debezium.connector.mongodb.transforms.ExtractNewDocumentState',
     'transforms.unwrap.drop.tombstones' = 'false',
     'transforms.unwrap.delete.handling.mode' = 'drop',
-    'transforms.unwrap.operation.header' = 'true'
+    'transforms.unwrap.operation.header' = 'true',
+    
+    'errors.tolerance' = 'all'
 );
 
 -- Show the connector
@@ -110,14 +112,14 @@ SELECT
     mortos AS dead,
 
     CASE
-        WHEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
-        THEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd')
+        WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy') IS NOT NULL 
+        THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy')
+
+        WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy') IS NOT NULL 
+        THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy')
         
-        WHEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yy') IS NOT NULL 
-        THEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yy')
-        
-        WHEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yyyy') IS NOT NULL 
-        THEN PARSE_TIMESTAMP(data_inversa, 'dd-MM-yyyy')
+        WHEN PARSE_DATE(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
+        THEN PARSE_DATE(data_inversa, 'yyyy-MM-dd')
     END AS `date`
 
 FROM
@@ -137,18 +139,6 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
     'pk.fields'='_ID'
 );
 
--- Checking all possible data formats
-SELECT
-    CASE
-        WHEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
-        THEN PARSE_TIMESTAMP(data_inversa, 'yyyy-MM-dd')
-        
-        WHEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yy') IS NOT NULL 
-        THEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yy')
-        
-        WHEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yyyy') IS NOT NULL 
-        THEN PARSE_TIMESTAMP(data_inversa, 'dd/MM/yyyy')
-    END AS `date`
 
-FROM ACCIDENTS_BRONZE_STREAM;
+SELECT * FROM 
 
