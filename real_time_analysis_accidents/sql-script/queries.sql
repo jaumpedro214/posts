@@ -153,7 +153,7 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
 -- ==========================================================================
 
 -- Silver to Gold transformation stream : Monthly aggregation
-CREATE OR REPLACE TABLE accidents_silver_to_gold_table_2
+CREATE OR REPLACE TABLE accidents_silver_to_gold_table
 WITH (
     value_format = 'avro'
 ) AS
@@ -195,7 +195,7 @@ EMIT CHANGES;
 
 -- Mongo Sink connector -> Gold Layer : Monthly aggregation
 CREATE SINK CONNECTOR ACCIDENTS_GOLD_SINK WITH (
-    'topics'='ACCIDENTS_SILVER_TO_GOLD_TABLE_2',
+    'topics'='ACCIDENTS_SILVER_TO_GOLD_TABLE',
     
     'connector.class'='com.mongodb.kafka.connect.MongoSinkConnector',
     'tasks.max'='1',
@@ -213,9 +213,10 @@ CREATE SINK CONNECTOR ACCIDENTS_GOLD_SINK WITH (
 );
 
 
+-- Silver to Gold transformation stream : Accident type aggregation
 SELECT  
-    accident_type,
-    AVG(dead) AS death_rate
+    accident_type as `_id`,
+    AVG(dead)   AS death_rate
 FROM accidents_bronze_to_silver
 GROUP BY accident_type
 EMIT CHANGES;
