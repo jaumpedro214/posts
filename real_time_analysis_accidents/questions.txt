@@ -1,0 +1,14 @@
+Aswer the questions:
+
+1. Number of people involved in accidents in each year in each month
+2. Counts and percent of unhurt, lighly injured, strongly injured and dead in each month
+3. Percents of people involved in accidents in each sex in each month
+4. Death rate in each accidents type
+
+
+Variables & transformations needed:
+- _id
+- data_inversa
+- ilesos, feridos_leves, feridos_graves, mortos
+- sexo
+- tipo_acidente

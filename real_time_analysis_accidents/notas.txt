@@ -1,0 +1,55 @@
+mongodb replica sets
+mongodb connector - https://www.confluent.io/hub/mongodb/kafka-connect-mongodb
+etl ksqldb - https://docs.ksqldb.io/en/latest/tutorials/etl/?_ga=2.238715784.906356959.1661483520-1727852891.1661062737#configure-mongodb-for-debezium
+execute command with mongodb - https://stackoverflow.com/questions/37423659/how-to-create-user-in-mongodb-with-docker-compose
+
+based on
+ksqlDB Documentation
+Streaming ETL pipeline
+https://docs.ksqldb.io/en/latest/tutorials/etl/?_ga=2.238715784.906356959.1661483520-1727852891.1661062737#what-is-it
+
+
+Learn KSQLDB - https://www.confluent.io/learn/ksqldb/
+Streams and tables - https://developer.confluent.io/learn-kafka/ksqldb/streams-and-tables/
+https://www.confluent.io/blog/kafka-connect-deep-dive-error-handling-dead-letter-queues/
+https://medium.com/@rt.raviteja95/mongodb-connector-with-ksqldb-with-confluent-kafka-2a3b18dc4c25
+
+https://pandas.pydata.org/pandas-docs/version/1.1/user_guide/scale.html#use-chunking
+
+https://www.mongodb.com/docs/manual/tutorial/change-hostnames-in-a-replica-set/
+cfg = rs.conf()
+cfg.members[0].host = "localhost:27017"
+rs.reconfig(cfg)
+
+Solution to the problem of defining the mongo documetn key in the sink connector
+https://github.com/hpgrahsl/kafka-connect-mongodb/issues/125
+https://github.com/hpgrahsl/kafka-connect-mongodb/issues/36
+https://www.mongodb.com/docs/kafka-connector/current/sink-connector/fundamentals/post-processors/#configure-the-document-id-adder-post-processor
+https://www.mongodb.com/docs/kafka-connector/current/sink-connector
+
+
+Problems encountered - Unable to create a table with a primary key from a field in the stream.
+https://stackoverflow.com/questions/62888881/tables-require-a-primary-key-when-create-a-table-with-kafka-topic
+CREATE TABLE sex_dimension_aux_1(
+    SEX VARCHAR(string) PRIMARY KEY
+)
+WITH (
+    KAFKA_TOPIC = 'ACCIDENTS_BRONZE_TO_SILVER',
+    VALUE_FORMAT = 'avro'
+);
+ERROR: duplicate columns 'SEX'
+
+https://developer.confluent.io/tutorials/credit-card-activity/confluent.html?_ga=2.44558243.668011660.1662140272-1727852891.1661062737#execute-ksqldb-code
+
+
+Understand why this is not working
+CASE
+    WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy') IS NOT NULL 
+    THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yy')
+
+    WHEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy') IS NOT NULL 
+    THEN PARSE_DATE(data_inversa, 'dd''/''MM''/''yyyy')
+    
+    WHEN PARSE_DATE(data_inversa, 'yyyy-MM-dd') IS NOT NULL 
+    THEN PARSE_DATE(data_inversa, 'yyyy-MM-dd')
+END AS `date`
