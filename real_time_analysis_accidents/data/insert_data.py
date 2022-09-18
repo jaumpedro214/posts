@@ -3,12 +3,12 @@ import pandas as pd
 import pymongo
 import datetime
 import pathlib
-
+import time
 
 # import data from accidents.parquet
 
 df_folder = './accidents.parquet'
-files = pathlib.Path(df_folder).glob("*.parquet")
+files = list(pathlib.Path(df_folder).glob("*.parquet"))
 
 # connect to mongodb
 # user - mongo; password - mongo

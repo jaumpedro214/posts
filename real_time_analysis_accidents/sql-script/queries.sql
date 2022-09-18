@@ -142,9 +142,7 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
     'connection.uri'='mongodb://mongo:mongo@mongo:27017',
     'database'='accidents',
     'collection'='accidents_silver',
-    'topics'='ACCIDENTS_BRONZE_TO_SILVER',
-
-    'pk.fields'='_ID'
+    'topics'='ACCIDENTS_BRONZE_TO_SILVER'
 );
 
 
@@ -153,7 +151,7 @@ CREATE SINK CONNECTOR ACCIDENTS_SILVER_SINK_CONNECTOR WITH (
 -- ==========================================================================
 
 -- Silver to Gold transformation stream : Monthly aggregation
-CREATE OR REPLACE TABLE accidents_silver_to_gold_table
+CREATE OR REPLACE TABLE gold_table_monthly_aggregated
 WITH (
     value_format = 'avro'
 ) AS
@@ -195,7 +193,7 @@ EMIT CHANGES;
 
 -- Mongo Sink connector -> Gold Layer : Monthly aggregation
 CREATE SINK CONNECTOR ACCIDENTS_GOLD_SINK WITH (
-    'topics'='ACCIDENTS_SILVER_TO_GOLD_TABLE',
+    'topics'='GOLD_TABLE_MONTHLY_AGGREGATED', 
     
     'connector.class'='com.mongodb.kafka.connect.MongoSinkConnector',
     'tasks.max'='1',
@@ -214,9 +212,33 @@ CREATE SINK CONNECTOR ACCIDENTS_GOLD_SINK WITH (
 
 
 -- Silver to Gold transformation stream : Accident type aggregation
+CREATE OR REPLACE TABLE gold_table_death_rates
+WITH (
+    value_format = 'avro'
+) AS
 SELECT  
     accident_type as `_id`,
     AVG(dead)   AS death_rate
 FROM accidents_bronze_to_silver
 GROUP BY accident_type
 EMIT CHANGES;
+
+
+-- Mongo Sink connector -> Gold Layer : Accident type aggregation
+CREATE SINK CONNECTOR ACCIDENTS_DEATH_RATE_SINK WITH (
+    'topics'='GOLD_TABLE_DEATH_RATES',
+    
+    'connector.class'='com.mongodb.kafka.connect.MongoSinkConnector',
+    'tasks.max'='1',
+
+    'connection.uri'='mongodb://mongo:mongo@mongo:27017',
+    'database'='accidents',
+    'collection'='death_rate_by_accident_type',
+    
+    'transforms'='WrapKey',
+    'transforms.WrapKey.type'='org.apache.kafka.connect.transforms.HoistField$Key',
+    'transforms.WrapKey.field'='_id',
+
+    'document.id.strategy'='com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInKeyStrategy',
+    'document.id.strategy.overwrite.existing'='true'
+);

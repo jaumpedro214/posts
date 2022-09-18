@@ -17,6 +17,8 @@ files = pathlib.Path(df_folder).glob("*.parquet")
 # database - accidents; collection - accidents_bronze
 # replica set - replica-set
 
+SLEEP_TIME = 0.01
+
 client = pymongo.MongoClient(
     "mongodb://mongo:mongo@localhost:27017"
 )
@@ -34,8 +36,7 @@ for path in files:
             row.to_dict()
         )
         
-        # decode row into utf-8
-        # and insert into mongodb
         print(row)
+        print("Row successfully inserted.")
         
-        time.sleep(2)
+        time.sleep(SLEEP_TIME)
