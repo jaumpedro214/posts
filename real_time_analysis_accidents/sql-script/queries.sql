@@ -116,7 +116,7 @@ SELECT
     END AS accident_type,
 
     ilesos AS unhurt,
-    feridos_leves AS lighly_injured,
+    feridos_leves AS lightly_injured,
     feridos_graves AS strongly_injured,
     mortos AS dead,
 
@@ -161,13 +161,13 @@ SELECT
     -- Absolute numbers
     COUNT(*) AS total_accidents,
     SUM(unhurt) AS total_unhurt,
-    SUM(lighly_injured) AS total_lighly_injured,
+    SUM(lightly_injured) AS total_lightly_injured,
     SUM(strongly_injured) AS total_strongly_injured,
     SUM(dead) AS total_dead,
 
     -- percentual numbers
     AVG(unhurt) * 100 AS percentual_unhurt,
-    AVG(lighly_injured) * 100 AS percentual_lighly_injured,
+    AVG(lightly_injured) * 100 AS percentual_lightly_injured,
     AVG(strongly_injured) * 100 AS percentual_strongly_injured,
     AVG(dead) * 100 AS percentual_dead,
 
