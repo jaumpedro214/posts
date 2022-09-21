@@ -157,7 +157,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
         <img src="https://img.shields.io/static/v1?label=&message=MongoDB&color=47A248&style=flat&logo=MONGODB&logoColor=white"/>
     </td>
     <td align="center">
-      <a href="https://github.com/jaumpedro214/real_time_analysis_accidents">🔗</a>
+      <a href="https://github.com/jaumpedro214/posts/tree/main/real_time_analysis_accidents">🔗</a>
     </td>
   </tr>
   
