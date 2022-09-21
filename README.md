@@ -144,5 +144,22 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
   
+  <tr>
+    <td>
+      Stream Processing and Data Analysis with ksqlDB
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/stream-processing-and-data-analysis-with-ksqldb-97f1ca4fcf6a">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=black&style=flat&logo=APACHEKAFKA&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label= &message=ksqlDB&color=eb5463&style=flat&"/>
+        <img src="https://img.shields.io/static/v1?label=&message=MongoDB&color=47A248&style=flat&logo=MONGODB&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/real_time_analysis_accidents">🔗</a>
+    </td>
+  </tr>
+  
 </tbody>
 </table>
