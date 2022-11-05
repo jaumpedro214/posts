@@ -161,5 +161,22 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
   
+  <tr>
+    <td>
+      A Fast Look at Spark Structured Streaming + Kafka
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/a-fast-look-at-spark-structured-streaming-kafka-f0ff64107325">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=black&style=flat&logo=APACHEKAFKA&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/traffic-flow-spark-kafka">🔗</a>
+    </td>
+  </tr>
+  
 </tbody>
 </table>
