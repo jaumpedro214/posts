@@ -178,5 +178,21 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
   
+  <tr>
+    <td>
+      First Steps in Machine Learning with Apache Spark
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/first-steps-in-machine-learning-with-apache-spark-672fe31799a3">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/spark-ml-first-steps">🔗</a>
+    </td>
+  </tr>
+  
 </tbody>
 </table>
