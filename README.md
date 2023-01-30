@@ -194,5 +194,22 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
   
+  <tr>
+    <td>
+      Temporal and Geo-referenced Traffic Management with Python+Streamlit
+    </td>
+    <td align="center">
+      <a href="https://medium.com/@joaopedro214/temporal-and-geo-referenced-traffic-management-with-python-streamlit-2b9d596e4789">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label= &message=Streamlit&color=fc4c4c&style=flat&logo=STREAMLIT&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/traffic-dashboard-streamlit">🔗</a>
+    </td>
+  </tr>
+  
+  
 </tbody>
 </table>
