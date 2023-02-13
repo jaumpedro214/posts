@@ -32,8 +32,6 @@ if __name__ == "__main__":
     if year not in links:
         print("Year not found")
         sys.exit(-1)
-
-    os.system(f"mkdir -p ./../data/{year}")
     
     gdown.download(links[year], f"./../data/acidentes_{year}.zip", quiet=False)
 
