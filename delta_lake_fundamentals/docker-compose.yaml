@@ -23,3 +23,11 @@ services:
     volumes:
       - ./data:/data
       - ./src:/src
+  jupyter:
+    image: jupyter/pyspark-notebook:spark-3.3.1
+    ports:
+      - '8890:8888'
+    volumes:
+      - ./data:/data
+      - ./src:/src
+      - ./notebooks:/notebooks

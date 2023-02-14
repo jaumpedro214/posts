@@ -1,2 +1,2 @@
-chmod 777 ./src
-chmod 777 ./data
+chmod -R 777 ./src
+chmod -R 777 ./data
