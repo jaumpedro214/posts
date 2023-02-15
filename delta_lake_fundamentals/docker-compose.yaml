@@ -1,0 +1,33 @@
+version: '3'
+services:
+  spark:
+    image: bitnami/spark:3.3.1
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - '8080:8080'
+      - '7077:7077'
+    volumes:
+      - ./data:/data
+      - ./src:/src
+  spark-worker:
+    image: bitnami/spark:3.3.1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=4G
+      - SPARK_EXECUTOR_MEMORY=4G
+      - SPARK_WORKER_CORES=4
+    ports:
+      - '8081:8081'
+    volumes:
+      - ./data:/data
+      - ./src:/src
+  jupyter:
+    image: jupyter/pyspark-notebook:spark-3.3.1
+    ports:
+      - '8890:8888'
+    volumes:
+      - ./data:/data
+      - ./src:/src
+      - ./notebooks:/notebooks
