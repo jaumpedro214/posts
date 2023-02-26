@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  spark:
+    build: .
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - '8080:8080'
+      - '4040:4040'
+    volumes:
+      - ./data:/data
+      - ./src:/src
+  spark-worker:
+    build: .
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=4G
+      - SPARK_EXECUTOR_MEMORY=4G
+      - SPARK_WORKER_CORES=4
+    volumes:
+      - ./data:/data
+      - ./src:/src 
