@@ -45,7 +45,7 @@ if __name__ == "__main__":
         )
         # Group by NO_CINE_AREA_DETALHADA, CO_CINE_AREA_DETALHADA
         .groupBy(
-            'CO_CINE_AREA_DETALHADA', 'CO_UF'
+            'CO_CINE_AREA_DETALHADA', 'CO_UF', 'NU_ANO_CENSO'
         )
         .agg(
             F.max('NO_CINE_AREA_DETALHADA').alias('NO_CINE_AREA_DETALHADA'),
