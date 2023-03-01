@@ -1,4 +1,7 @@
 from pyspark.sql import SparkSession
+from pyspark.sql import functions as F
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, LongType, BooleanType
+
 from delta import configure_spark_with_delta_pip
 
 MASTER_URI = "spark://spark:7077"
@@ -97,6 +100,15 @@ if __name__ == "__main__":
             "TP_NIVEL_ACADEMICO",
         ]
     )
+
+    # cast columns
+    for col in df_cursos.columns:
+        if col in ["NU_ANO_CENSO"] or col.startswith("QT_"):
+            df_cursos = df_cursos.withColumn(col, df_cursos[col].cast(IntegerType()))
+        elif col.startswith("IN_"):
+            df_cursos = df_cursos.withColumn(col, df_cursos[col].cast(BooleanType()))
+        else:
+            df_cursos = df_cursos.withColumn(col, df_cursos[col].cast(StringType()))
 
     # df_cursos.show(10)
 
