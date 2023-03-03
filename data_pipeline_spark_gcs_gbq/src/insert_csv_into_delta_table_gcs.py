@@ -64,7 +64,7 @@ if __name__ == "__main__":
             "QT_ING_INDIGENA",
             "QT_ING_CORND",
 
-            # Sex
+            # Gender
             "QT_ING_FEM",
             "QT_ING_MASC",
 
