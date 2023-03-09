@@ -227,6 +227,27 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
   
+  <tr>
+    <td>
+      Creating a Data Pipeline with Spark, Google Cloud Storage and Big Query
+    </td>
+    <td align="center">
+      <a href="https://medium.com/towards-data-science/creating-a-data-pipeline-with-spark-google-cloud-storage-and-big-query-a72ede294f4c">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Delta Lake&color=00ADD4&style=flat"/>
+        <img src="https://img.shields.io/static/v1?label= GCP&message=Storage&color=2074EC&style=flat&logo=GOOGLECLOUD&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label= GCP&message=BigQuery&color=2074EC&style=flat&logo=GOOGLECLOUD&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts">🔗</a>
+    </td>
+  </tr>
   
+
 </tbody>
 </table>
+
+\* <img src="https://img.shields.io/static/v1?label= &message=Docker&color=2496ed&style=flat&logo=DOCKER&logoColor=white"/> Is used in almost every project
