@@ -1,3 +1,11 @@
+# import airflow
+from airflow import DAG
+from airflow.models import Variable, Connection
+from airflow.operators.python_operator import PythonOperator
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+
+from datetime import datetime, timedelta
+
 import requests
 import boto3
 
@@ -69,23 +77,18 @@ LINKS_ENEM = {
     "2022_4":'https://download.inep.gov.br/enem/provas_e_gabaritos/2022_PV_reaplicacao_PPL_D2_CD7.pdf',
 }
 
+AWS_CONN_ID = "AWSConnection"
+YEAR_VARIABLE = "year"
 
 def download_pdfs_from_year(
-        year,
-        bucket,
-        keypath=None
+        year_variable,
+        bucket
     ):
     
-    if keypath is None:
-        client = boto3.client('s3')
-    else:
-        file = open(keypath, "r")
-        id_key, secret_key = file.read().splitlines()
-        client = boto3.client(
-            's3',
-            aws_access_key_id=id_key,
-            aws_secret_access_key=secret_key
-        )
+    conn = S3Hook(aws_conn_id=AWS_CONN_ID)
+    client = conn.get_conn()
+
+    year = Variable.get(year_variable)
 
     year_keys = [key for key in LINKS_ENEM.keys() if year in key]
 
@@ -104,8 +107,33 @@ def download_pdfs_from_year(
             Bucket=bucket,
         )
 
-if __name__ == "__main__":    
-    # TEST 
-    download_pdfs_from_year("2021", "enem-bucket", "./secrets/key.txt")
-    download_pdfs_from_year("2021", "enem-bucket", "./secrets/key.txt")
-    download_pdfs_from_year("2011", "enem-bucket", "./secrets/key.txt")
+
+    year = str(int(year)+1)
+    Variable.set(year_variable, year)
+
+
+
+default_args = {
+    'owner': 'ENEM_PDF',
+    'depends_on_past': False,
+    'start_date': datetime(2021, 1, 1),
+}
+
+dag = DAG(
+    'process_enem_pdf_aws',
+    default_args=default_args,
+    description='Process ENEM PDFs using AWS',
+    tags=['enem'],
+    catchup=False,
+)
+
+with dag:
+
+    download_pdf_upload_s3 = PythonOperator(
+        task_id='download_pdf_upload_s3',
+        python_callable=download_pdfs_from_year,
+        op_kwargs={
+            'year_variable': 'year',
+            'bucket': 'enem-bucket',
+        },
+    )
