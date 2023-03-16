@@ -1,6 +1,7 @@
 import boto3
 from PyPDF2 import PdfReader
 import io
+import json
 
 def lambda_handler(event, context):
     object_key = event["Records"][0]["s3"]["object"]["key"]
@@ -35,10 +36,16 @@ def lambda_handler(event, context):
         raise e
 
     try:
+
+        text_object = {
+            "content": text,
+            "original_uri": object_uri
+        }
+
         client.put_object(
-            Body=text.encode("utf-8"),
+            Body=json.dumps(text_object).encode("utf-8"),
             Bucket=bucket,
-            Key=f"content/{object_key[:-4]}.txt" ,
+            Key=f"content/{object_key[:-4]}.json" ,
         )
     except Exception as e:
         print(e)
