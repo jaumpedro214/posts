@@ -1,13 +1,12 @@
 # import airflow
 from airflow import DAG
-from airflow.models import Variable, Connection
+from airflow.models import Variable
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.providers.amazon.aws.hooks.base_aws import AwsGenericHook
 
-from datetime import datetime, timedelta
-
+from datetime import datetime
 import requests
-import boto3
 
 
 LINKS_ENEM = {
@@ -84,7 +83,6 @@ def download_pdfs_from_year(
         year_variable,
         bucket
     ):
-    
     conn = S3Hook(aws_conn_id=AWS_CONN_ID)
     client = conn.get_conn()
 
@@ -112,6 +110,19 @@ def download_pdfs_from_year(
     Variable.set(year_variable, year)
 
 
+def trigger_process_enem_pdf_glue_job(
+    job_name
+):
+    
+    session = AwsGenericHook(aws_conn_id=AWS_CONN_ID)
+    boto3_session = session.get_session(
+        region_name='us-east-1',
+    )
+        
+    client = boto3_session.client('glue')
+    client.start_job_run(
+        JobName=job_name,
+    )
 
 default_args = {
     'owner': 'ENEM_PDF',
@@ -137,3 +148,13 @@ with dag:
             'bucket': 'enem-bucket',
         },
     )
+
+    trigger_glue_job = PythonOperator(
+        task_id='trigger_glue_job',
+        python_callable=trigger_process_enem_pdf_glue_job,
+        op_kwargs={
+            'job_name': 'Spark_EnemExtractQuestionsJSON'
+        },
+    )
+
+    download_pdf_upload_s3 >> trigger_glue_job
