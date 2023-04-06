@@ -246,6 +246,25 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
   
+  <tr>
+    <td>
+      Data Pipeline with Airflow and AWS Tools (S3, Lambda & Glue)
+    </td>
+    <td align="center">
+      <a href="https://medium.com/towards-data-science/data-pipeline-with-airflow-and-aws-tools-s3-lambda-glue-18585d269761">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Airflow&color=017CEE&style=flat&logo=APACHEAIRFLOW&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=AWS&color=232F3E&style=flat&logo=amazonaws&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Lambda&color=FF9900&style=flat&logo=awslambda&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=S3&color=569A31&style=flat&logo=amazons3&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts">🔗</a>
+    </td>
+  </tr>
 
 </tbody>
 </table>
