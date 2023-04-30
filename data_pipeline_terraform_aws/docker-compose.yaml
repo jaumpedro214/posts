@@ -1,0 +1,12 @@
+version: '3'
+services:
+  terraform:
+    image: hashicorp/terraform:latest
+    volumes:
+      - ./terraform:/terraform
+    working_dir: /terraform
+    command: ["init"]
+    environment:
+      - TF_VAR_AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - TF_VAR_AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - TF_VAR_AWS_DEFAULT_REGION=us-east-1
