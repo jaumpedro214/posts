@@ -285,6 +285,22 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
 
+  <tr>
+    <td>
+      Automatically Detecting Label Errors in Datasets with CleanLab
+    </td>
+    <td align="center">
+      <a href="https://medium.com/towards-data-science/automatically-detecting-label-errors-in-datasets-with-cleanlab-e0a3ea5fb345">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=CleanLab&color=0494ac&style=flat&logo=cleanlab&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=SKLearn&labelColor=blue&message=Classification&color=orange&style=flat&logo=SCIKITLEARN&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/data-analysis-camara-federal-pls">🔗</a>
+    </td>
+  </tr>
+
 </tbody>
 </table>
 
