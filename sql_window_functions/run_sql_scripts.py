@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '1_population_diff.sql'
+SCRIPT = '2_population_diff_by_country.sql'
 
 con = sqlite3.connect('examples.sqlite')
 
