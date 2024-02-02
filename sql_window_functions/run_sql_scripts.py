@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '3_cumulative_salaqy.sql'
+SCRIPT = '4_cumulative_salary_by_worker.sql'
 
 con = sqlite3.connect('examples.sqlite')
 
