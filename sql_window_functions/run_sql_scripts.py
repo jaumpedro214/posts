@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '2_population_diff_by_country.sql'
+SCRIPT = '3_cumulative_salaqy.sql'
 
 con = sqlite3.connect('examples.sqlite')
 
