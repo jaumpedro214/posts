@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '5_rolling_means.sql'
+SCRIPT = '6_event_time.sql'
 
 con = sqlite3.connect('examples.sqlite')
 

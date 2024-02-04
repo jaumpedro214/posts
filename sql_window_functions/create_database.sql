@@ -162,3 +162,22 @@ VALUES
 ('2023-01-26', 10),
 ('2023-01-27', 7);
 
+CREATE TABLE IF NOT EXISTS events (
+    event_start_time TIMESTAMP,
+    event_id VARCHAR(8)
+);
+
+INSERT INTO events (event_start_time, event_id)
+VALUES
+('2024-01-01 12:30:16', 'e8C3FG1H'),
+('2024-01-01 12:31:55', 'DS4dsg3g'),
+('2024-01-01 12:33:42', 'hG5fDg2S'),
+('2024-01-01 12:35:21', 'jK9sHd4F'),
+('2024-01-01 12:37:08', 'lM3gFh6J'),
+('2024-01-01 12:38:47', 'nP7jKl8M'),
+('2024-01-01 12:40:34', 'qR2mNp0Q'),
+('2024-01-01 12:42:13', 'sT6qRr2U'),
+('2024-01-01 12:43:59', 'uX0vSs4W'),
+('2024-01-01 12:45:38', 'wZ4yVv6Y');
+
+
