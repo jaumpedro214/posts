@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '10_frequency_encoder.sql'
+SCRIPT = '11_rolling_means_rows_between.sql'
 
 con = sqlite3.connect('examples.sqlite')
 
