@@ -199,3 +199,19 @@ VALUES
 ('2024-01-01 12:45:38', NULL),
 ('2024-01-01 12:55:10', 60),
 ('2024-01-01 12:56:50', NULL);
+
+CREATE TABLE IF NOT EXISTS user_email_history (
+    user_id VARCHAR(255),
+    email VARCHAR(255),
+    created_at DATE
+);
+
+INSERT INTO user_email_history (user_id, email, created_at)
+VALUES
+('01abc', 'joao@email.com',      '2023-01-01 12:30:16'),
+('01abc', 'joaopedro@email.com', '2023-01-01 12:31:55'),
+('01xyz', 'jhon@zmail.com',      '2023-01-01 12:33:42'),
+('01xyz', 'jhon2@zmail.com',     '2023-12-04 16:35:21'),
+('01xyz', 'jhon3@zmail.com',     '2024-01-10 09:37:08'),
+('e3r2d', 'maria@box.edu.br',    '2012-01-06 12:38:47'),
+('e3r2d', 'maria@zmail.com',     '2024-01-01 12:40:34');

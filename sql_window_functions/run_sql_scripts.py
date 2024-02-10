@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '6_event_time.sql'
+SCRIPT = '9_deduplicate_and_versioning.sql'
 
 con = sqlite3.connect('examples.sqlite')
 
