@@ -1,7 +1,7 @@
 import sqlite3
 
 PATH_QUERIES = 'queries'
-SCRIPT = '9_deduplicate_and_versioning.sql'
+SCRIPT = '10_frequency_encoder.sql'
 
 con = sqlite3.connect('examples.sqlite')
 

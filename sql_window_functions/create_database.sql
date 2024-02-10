@@ -215,3 +215,36 @@ VALUES
 ('01xyz', 'jhon3@zmail.com',     '2024-01-10 09:37:08'),
 ('e3r2d', 'maria@box.edu.br',    '2012-01-06 12:38:47'),
 ('e3r2d', 'maria@zmail.com',     '2024-01-01 12:40:34');
+
+
+CREATE TABLE products (
+    product_id VARCHAR(255),
+    product_name VARCHAR(255),
+    product_class VARCHAR(255)
+);
+
+INSERT INTO products (product_id, product_name, product_class)
+VALUES
+('pnl01',        'Handsome Pineapple', 'Fruit'),
+('sdriu',        'Magic Apple',       'Fruit'),
+('grapes01',     'Grapes',            'Fruit'),
+('car01',        'Car',               'Vehicle'),
+('bike01',       'Bike',              'Vehicle'),
+('rocket01',     'Rocket',            'Vehicle'),
+('laptop01',     'Laptop',            'Electronics'),
+('smartphone01', 'Smartphone',        'Electronics'),
+('tablet01',     'Tablet',            'Electronics'),
+('headphones01', 'Headphones',        'Electronics'),
+('smartwatch01', 'Smartwatch',        'Electronics'),
+('tv01',         'TV',                'Electronics'),
+('sofa01',       'Sofa',              'Furniture'),
+('chair01',      'Chair',             'Furniture'),
+('bed01',        'Bed',               'Furniture'),
+('table01',      'Table',             'Furniture'),
+('closet01',     'Closet',            'Furniture'),
+('shelf01',      'Shelf',             'Furniture'),
+('cup01',        'Cup',               'Kitchen'),
+('plate01',      'Plate',             'Kitchen'),
+('fork01',       'Fork',              'Kitchen'),
+('knife01',      'Knife',             'Kitchen'),
+('spoon01',      'Spoon',             'Kitchen')
