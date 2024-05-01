@@ -301,6 +301,21 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
 
+  <tr>
+    <td>
+      My First Billion (of Rows) in DuckDB
+    </td>
+    <td align="center">
+      <a href="https://medium.com/towards-data-science/my-first-billion-of-rows-in-duckdb-11873e5edbb5">🔗</a>
+    </td>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=DuckDB&color=FFF000&style=flat&logo=DuckDB&logoColor=black"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/urna-logs-data-eng">🔗</a>
+    </td>
+  </tr>
+
 </tbody>
 </table>
 
