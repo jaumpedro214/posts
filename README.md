@@ -316,6 +316,21 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
 
+  <tr>
+    <td>
+      Anatomy of Windows Functions
+    </td>
+    <td align="center">
+      <a href="https://towardsdatascience.com/anatomy-of-windows-functions-08f04938b12b">🔗</a>
+    </td>
+    <td>
+      <img src="https://img.shields.io/static/v1?label=&message=SQL&color=4169E1&style=flat&logo=sql&logoColor=white"/>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts/tree/main/sql_window_functions">🔗</a>
+    </td>
+  </tr>
+
 </tbody>
 </table>
 
