@@ -8,122 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css">
 
-
-    <style>
-
-        div {
-            font-family: 'Lexend Exa', sans-serif;
+    <script>
+        function goToChatPage() {
+            window.location.href = "chat.html";
         }
-
-        button {
-            font-family: 'Lexend Exa', sans-serif;
-        }
-
-        button:hover {
-            cursor: pointer;
-        }
-
-        body {
-            background-image: url('./img/background-img-full.svg');
-            background-repeat: no-repeat;
-            background-size: 100% auto;
-            background-position-x: center;
-            background-position-y: center;
-
-            background-color: #f1c232ff;
-        }
-
-        .dashed-line {
-            width: 90%;
-            position: absolute;
-            object-fit: contain;
-            left: 4%;
-            top: 5%;
-            z-index: -1;
-        }
-
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .title {
-            font-weight: 600;
-            font-size: 35px;
-            margin-bottom: 20px;
-        }
-
-        .description {
-            font-weight: 300;
-            font-size: 25px;
-            margin-bottom: 40px;
-            text-align: center;
-            width: 40%;
-        }
-
-        .input-main-container {
-            display: flex;
-            justify-content: center;
-
-            width: 700px;
-            height: 40px;
-
-            border-style: solid;
-            border-width: 2px;
-            border-radius: 10px;
-            border-color: black;
-
-            font-size: 20px;
-            box-shadow: 3px 3px 0px black;
-
-            background-color: white;
-
-            margin-bottom: 40px;
-        }
-
-        .input-field {
-            width: 90%;
-            border-width: 0px;
-
-            font-family: 'Lexend Exa', sans-serif;
-            font-size: 15px;
-        }
-
-        .input-field:focus {
-            outline: none;
-        }
-
-        .button-send-main {
-            background-color: #93c47dff;
-            padding: 10px;
-
-            border-style: solid;
-            border-width: 2px;
-            border-radius: 10px;
-            border-color: black;
-
-            font-size: 20px;
-            box-shadow: 3px 3px 0px black;
-
-            margin-right: 3px;
-            margin-bottom: 3px;
-        }
-
-        .button-send-main:active {
-            box-shadow: none;
-            margin: 0px;
-            
-            margin-left: 3px;
-            margin-top: 3px;
-        }
-
-    </style>
+    </script>
 </head>
-<body>
+<body class="body-main">
     <div class="main-container">
         <div class="title"> O ChatGPT é Brega? </div>
         <div class="description">
@@ -133,7 +26,7 @@
             <input class="input-field"> 
         </div>
         <div>
-            <button class="button-send-main"> Enviar </button>
+            <button class="button-send-main" onclick="goToChatPage()"> Enviar </button>
         </div>
     </div>
 
