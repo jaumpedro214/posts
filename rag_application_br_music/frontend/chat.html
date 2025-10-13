@@ -20,6 +20,8 @@
             border-style: solid;
             border-width: 3px;
             border-color: black;
+
+            position: relative;
         }
 
         .chat-response-title {
@@ -45,6 +47,35 @@
             height: 90%;
         }
 
+        .user-question-text {
+            width: 60%;
+
+            font-size: 20px;
+
+            background-color: white;
+            border-style: solid;
+            border-width: 3px;
+            border-color: black;
+            padding:15px;
+
+            margin-bottom: 30px;
+        }
+
+        .chat-response-block-dog-gif {
+            position: absolute;
+            bottom: 90%;
+            left: 80%;
+
+            width: 150px;
+        }
+
+        .chat-response-block-brflag {
+            position: absolute;
+            bottom: 91%;
+            left: 3%;
+            width: 50px;
+        }
+
     </style>
 
     <title>Document</title>
@@ -57,21 +88,7 @@
             <input class="input-field"> 
         </div>
 
-        <div
-            style="
-                width: 60%;
-
-                font-size: 20px;
-
-                background-color: white;
-                border-style: solid;
-                border-width: 3px;
-                border-color: black;
-                padding:15px;
-
-                margin-bottom: 30px;
-            "
-        >
+        <div class="user-question-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget aliquam leo. Proin sed tellus odio. Fusce est velit, molestie sed ipsum et, consectetur egestas massa. 
         </div>
 
@@ -94,6 +111,16 @@
                 <div class="chat-response-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget aliquam leo. Proin sed tellus odio. Fusce est velit, molestie sed ipsum et, consectetur egestas massa. Ut quis diam fringilla, lacinia lectus nec, placerat ex. Cras sed eros mi. Suspendisse interdum magna augue, semper eleifend augue maximus non. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
                 </div>
+
+                <img 
+                    src="./img/cachorrinho-br-80ms.gif"
+                    class="chat-response-block-dog-gif"
+                >
+
+                <img 
+                    src="./img/brazil.png"
+                    class="chat-response-block-brflag"
+                >
             </div>
 
         </div>
