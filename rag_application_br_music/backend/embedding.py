@@ -4,6 +4,7 @@ import os
 from pprint import pprint
 import psycopg2
 
+EMBEDDING_MODEL = "text-embedding-3-small"
 
 def get_embedding_api_client():
     if not os.getenv("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") == "":
@@ -19,8 +20,6 @@ def read_song_lyrics():
     return lyrics
 
 def embed_lyrics(songs_lyrics, embedding_client):
-
-    EMBEDDING_MODEL = "text-embedding-3-small"
 
     for i, lyrics in enumerate(songs_lyrics):
 
@@ -108,7 +107,7 @@ def text_embedding_flow():
     embedding_client = get_embedding_api_client()
     print("Sucessfully connect to the embedding client.")
 
-    lyrics = read_song_lyrics()[:4]
+    lyrics = read_song_lyrics()
     print("Successfully loaded song lyrics")
 
     lyrics_with_embeddings = embed_lyrics(lyrics, embedding_client)
@@ -120,5 +119,6 @@ def text_embedding_flow():
     save_embeddings_in_postgresql(lyrics_with_embeddings)
     print("Successfully saved lyrics with their embeddings in the database")
 
-    
-text_embedding_flow()
+
+if __name__ == "__main__":
+    text_embedding_flow()
