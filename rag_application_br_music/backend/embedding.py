@@ -50,7 +50,7 @@ def save_embeddings_in_file(lyrics_with_embeddings):
     with open('br-songs-lyrics-embedded.json', 'w') as f:
         json.dump(lyrics_with_embeddings, f)
 
-def save_embeddings_in_postgresql():
+def save_embeddings_in_postgresql(lyrics_with_embeddings):
     pass
 
 def connect_to_postgresql():

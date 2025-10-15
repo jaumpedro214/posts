@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   db:
     build: ./db
@@ -7,6 +5,8 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: database
+    ports:
+      - 5444:5432
 
   backend:
     build: ./backend
