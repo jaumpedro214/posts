@@ -2,6 +2,8 @@ import json
 from openai import OpenAI
 import os
 from pprint import pprint
+import psycopg2
+
 
 def get_embedding_api_client():
     if not os.getenv("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") == "":
@@ -43,18 +45,64 @@ def embed_lyrics(songs_lyrics, embedding_client):
         except Exception as e:
             print(f"Error embedding song - {str(e)}")
 
-    return lyrics
+    return songs_lyrics
 
 def save_embeddings_in_file(lyrics_with_embeddings):
     
     with open('br-songs-lyrics-embedded.json', 'w') as f:
         json.dump(lyrics_with_embeddings, f)
 
-def save_embeddings_in_postgresql(lyrics_with_embeddings):
-    pass
-
 def connect_to_postgresql():
-    pass
+
+    POSTGRES_HOST = os.getenv('POSTGRES_HOST')
+    POSTGRES_USER = os.getenv('POSTGRES_USER')
+    POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+    POSTGRES_DB = os.getenv('POSTGRES_DB')
+
+    conn = psycopg2.connect(
+        host=POSTGRES_HOST,
+        port="5432",
+        dbname=POSTGRES_DB,
+        user=POSTGRES_USER,
+        password=POSTGRES_PASSWORD
+    )
+    conn.autocommit = True
+    return conn
+
+def save_embeddings_in_postgresql(lyrics_with_embeddings):
+
+    if not lyrics_with_embeddings:
+        raise ValueError("No songs to save in the argument 'lyrics_with_embeddings'")
+
+    conn = connect_to_postgresql()
+    cur = conn.cursor()
+
+    insert_query = """
+        INSERT INTO songs (embedding, author, lyrics, "name", model)
+        VALUES (%s, %s, %s, %s, %s)
+    """
+
+    try:
+        for item in lyrics_with_embeddings:
+            embedding_str = str(item["vector"])  # converte o vetor para string
+            cur.execute(
+                insert_query,
+                (
+                    embedding_str,           # embedding
+                    item["artist"],          # author
+                    item["lyrics"],          # lyrics
+                    item["title"],           # name
+                    item["model"],           # model
+                )
+            )
+        conn.commit()
+        print(f"{len(lyrics_with_embeddings)} registros inseridos em 'songs'")
+    except Exception as e:
+        conn.rollback()
+        print(f"Erro ao inserir dados: {e}")
+    finally:
+        cur.close()
+        conn.close()
 
 def text_embedding_flow():
     embedding_client = get_embedding_api_client()
@@ -69,6 +117,8 @@ def text_embedding_flow():
     save_embeddings_in_file(lyrics_with_embeddings)
     print("Successfully saved lyrics with their embeddings in the JSON file")
 
-    
+    save_embeddings_in_postgresql(lyrics_with_embeddings)
+    print("Successfully saved lyrics with their embeddings in the database")
 
+    
 text_embedding_flow()
