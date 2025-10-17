@@ -24,6 +24,10 @@ def generate_response(question: str):
         model="gpt-4o-mini",
             input=[
                 {
+                    "role": "system",
+                    "content": f"Answer the user question. To format text, only use the HTML tags <strong> and <p>." 
+                },
+                {
                     "role": "user",
                     "content": [
                         {
@@ -53,7 +57,7 @@ def generate_rag_response(question: str):
             input=[
                 {
                     "role": "system",
-                    "content": f"Answer the user questions using the following data as content:\n{song_lyrics}" 
+                    "content": f"Answer the user questions using the following data as content. To format text, only use the HTML tags <strong> and <p>.:\n{song_lyrics}." 
                 },
                 {
                     "role": "user",
