@@ -15,7 +15,7 @@
         .chat-response-block {
             background-color: white;
             width: 500px;
-            height: 600px;
+            min-height: 500px;
 
             border-style: solid;
             border-width: 3px;
@@ -37,14 +37,19 @@
             border-bottom-style: solid;
             border-bottom-width: 3px;
             border-bottom-color: black;
+
+            position: relative;
         }
 
         .chat-response-text {
             font-size: 20px;
             text-align: justify;
             padding: 15px;
+        }
 
-            height: 90%;
+        .chat-response-text p{
+            margin: 0px;
+            margin-bottom: 2px;
         }
 
         .user-question-text {
@@ -63,7 +68,7 @@
 
         .chat-response-block-dog-gif {
             position: absolute;
-            bottom: 90%;
+            bottom: 8%;
             left: 80%;
 
             width: 150px;
@@ -71,7 +76,7 @@
 
         .chat-response-block-brflag {
             position: absolute;
-            bottom: 91%;
+            bottom: 8%;
             left: 3%;
             width: 50px;
         }
@@ -110,22 +115,28 @@
 
             <div class="chat-response-block">
                 <div class="chat-response-title" style="background-color: #674ea7ff;"> ChatGPT </div>
-                <div class="chat-response-text js-chat-simple-response-text"></div>
+                <div class="chat-response-text js-chat-simple-response-text">
+
+                </div>
             </div>
 
             <div class="chat-response-block">
-                <div class="chat-response-title" style="background-color: #3c78d8ff;"> ChatGPT + RAG </div>
+                <div class="chat-response-title" style="background-color: #3c78d8ff;">
+                    ChatGPT + RAG
+
+                    <img 
+                        src="./img/cachorrinho-br-80ms.gif"
+                        class="chat-response-block-dog-gif"
+                    >
+
+                    <img 
+                        src="./img/brazil.png"
+                        class="chat-response-block-brflag"
+                    >
+                </div>
                 <div class="chat-response-text js-chat-rag-response-text"></div>
 
-                <img 
-                    src="./img/cachorrinho-br-80ms.gif"
-                    class="chat-response-block-dog-gif"
-                >
 
-                <img 
-                    src="./img/brazil.png"
-                    class="chat-response-block-brflag"
-                >
             </div>
 
         </div>
