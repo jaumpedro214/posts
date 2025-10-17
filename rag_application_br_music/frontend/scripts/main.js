@@ -40,31 +40,16 @@ function userQuestionFlow() {
     goToChatPage();
 }
 
-
-function requestChatResponse(userQuestion) {
-    response = `This is a mock response for  the question.
-
-    Question: ${userQuestion}
-    `;
-
-    // create the <p> elements for each \n
-
-    response = response.split("\n").map( line => `<p>${line}</p>` ).join("");
-    return response;
+function formatTextIntoParagraphs(text){
+    return text.split("\n").map( line => `<p>${line}</p>` ).join("");
 }
 
-function requestChatRAGResponse(userQuestion) {
-    response = `This is a mock response for  the question.
 
-    Question: ${userQuestion}
-    `;
-
-    // create the <p> elements for each \n
-
-    response = response.split("\n").map( line => `<p>${line}</p>` ).join("");
-    return response;
+async function requestResponse(userQuestion) {
+    const response = await fetch(`http://localhost:8000/generate-response?question=${userQuestion}`);
+    const data = await response.json();
+    return data
 }
-
 
 function userQuestionResponseFlow() {
     const userQuestion = getUserQuestionFromLocalStorage();
@@ -73,18 +58,22 @@ function userQuestionResponseFlow() {
         return;
     }
 
+    requestResponse(userQuestion).then( 
+        data => {
+            const chatReponseElement = document.querySelector(".js-chat-simple-response-text");
+            const chatRAGResopnseElement = document.querySelector(".js-chat-rag-response-text");
+            const normalResponse = data.normal_response.content;
+            const ragResponse = data.rag_response.content;
+
+            console.log(data)
+            
+            // include the responses 
+            chatReponseElement.innerHTML = formatTextIntoParagraphs(normalResponse);
+            chatRAGResopnseElement.innerHTML = formatTextIntoParagraphs(ragResponse);
+        }
+    )
+
     writeUserQuestionToChatPage(userQuestion);
-
-    const chatResponse = requestChatResponse(userQuestion);
-    const chatRAGResponse = requestChatRAGResponse(userQuestion);
-
-    const chatReponseElement = document.querySelector(".js-chat-simple-response-text");
-    const chatRAGResopnseElement = document.querySelector(".js-chat-rag-response-text");
-
-    // include the responses 
-    chatReponseElement.innerHTML = chatResponse;
-    chatRAGResopnseElement.innerHTML = chatRAGResponse;
-
     localStorage.removeItem("userQuestion");
 }
 
