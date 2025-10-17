@@ -81,6 +81,33 @@
             width: 50px;
         }
 
+        .loading-thiking {
+            text-align: center;
+
+            font-weight: 500;
+            font-size: 30px;
+        }
+
+        .square{
+            width: 30px;
+            height: 30px;
+
+            display:block;
+            background: black;
+            justify-self: center;
+
+            animation: roll 0.8s ease-in-out infinite;
+
+            margin-bottom: 20px;
+            margin-top: 130px;
+        }
+
+        @keyframes roll {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
     </style>
 
     <title>Document</title>
@@ -116,7 +143,12 @@
             <div class="chat-response-block">
                 <div class="chat-response-title" style="background-color: #674ea7ff;"> ChatGPT </div>
                 <div class="chat-response-text js-chat-simple-response-text">
-
+                    
+                    <div class="square" aria-hidden="true"></div>
+                    <div class="loading-thiking js-thiking">
+                        Thinking...
+                    </div>
+                    
                 </div>
             </div>
 
@@ -134,7 +166,14 @@
                         class="chat-response-block-brflag"
                     >
                 </div>
-                <div class="chat-response-text js-chat-rag-response-text"></div>
+                <div class="chat-response-text js-chat-rag-response-text">
+
+                    <div class="square" aria-hidden="true"></div>
+                    <div class="loading-thiking js-thiking">
+                        Thinking...
+                    </div>
+
+                </div>
 
 
             </div>
