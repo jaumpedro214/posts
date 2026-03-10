@@ -1,0 +1,30 @@
+services:
+  db:
+    build: ./db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: database
+    ports:
+      - 5444:5432
+
+  backend:
+    build: ./backend
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: database
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    volumes:
+    - ./frontend:/app
+    ports:
+      - "8612:8080"

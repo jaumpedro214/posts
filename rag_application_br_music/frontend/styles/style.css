@@ -1,0 +1,119 @@
+
+    div {
+        font-family: 'Lexend Exa', sans-serif;
+    }
+
+    button {
+        font-family: 'Lexend Exa', sans-serif;
+    }
+
+    input {
+        font-family: 'Lexend Exa', sans-serif;
+        font-size: 20px;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    .body-main {
+        background-image: url('.././img/background-img-full.svg');
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-position-x: center;
+        background-position-y: center;
+
+        background-color: #f1c232ff;
+    }
+
+    .dashed-line {
+        width: 90%;
+        position: absolute;
+        object-fit: contain;
+        left: 4%;
+        top: 5%;
+        z-index: -1;
+    }
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 35px;
+        margin-bottom: 20px;
+    }
+
+    .description {
+        font-weight: 500;
+        font-size: 25px;
+        margin-bottom: 40px;
+        text-align: center;
+        width: 40%;
+    }
+
+    .input-main-container {
+        display: flex;
+        justify-content: center;
+
+        width: 75%;
+        height: 50px;
+
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 15px;
+        border-color: black;
+
+        box-shadow: 4px 4px 0px black;
+
+        background-color: white;
+
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        width: 95%;
+        border-width: 0px;
+        font-size: 15px;
+    }
+
+    .button-send-main {
+        background-color: #93c47dff;
+        padding: 10px;
+
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 10px;
+        border-color: black;
+
+        font-size: 20px;
+        box-shadow: 3px 3px 0px black;
+
+        margin-right: 3px;
+        margin-bottom: 3px;
+    }
+
+    .button-send-main:active {
+        box-shadow: none;
+        margin: 0px;
+        
+        margin-left: 3px;
+        margin-top: 3px;
+    }
+
+    .body-chat {
+        background-image: url('.././img/background-img-chat.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        background-color: #f1c232ff;
+    }
