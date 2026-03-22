@@ -8,7 +8,7 @@ echo "Starting download..."
 echo "Download completed."
 
 echo "Starting extraction..."
-./extract_all.sh
+./extract.sh
 
 echo "Extraction completed."
 
