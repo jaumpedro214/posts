@@ -3,4 +3,5 @@
 *.parquet
 *.pdf
 *.duckdb
+*.sqlite
 .venv
