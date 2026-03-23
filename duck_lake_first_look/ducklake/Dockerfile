@@ -5,4 +5,4 @@ WORKDIR /data
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-CMD ["tail", "-f", "/dev/null"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]

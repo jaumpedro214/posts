@@ -2,5 +2,7 @@
 services:
   ducklake:
     build: ./ducklake
+    ports:
+      - 8888:8888
     volumes:
       - ./data:/data
