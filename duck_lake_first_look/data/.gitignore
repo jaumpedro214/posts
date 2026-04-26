@@ -1,0 +1,7 @@
+*.zip
+*.csv
+*.parquet
+*.pdf
+*.duckdb
+*.sqlite
+.venv
