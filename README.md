@@ -33,7 +33,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://towardsdatascience.com/building-a-text-preprocessing-microservice-with-fastapi-ca7912050ba">🔗</a>
     </td>
     <td>
-      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/> 
+      <img src="https://img.shields.io/static/v1?label=NLP&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/> 
       <a href="https://fastapi.tiangolo.com/">
         <img src="https://img.shields.io/static/v1?label=&message=FastAPI&color=089484&style=flat&logo=FASTAPI&logoColor=white"/>
       </a>
@@ -50,7 +50,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://joaopedro214.medium.com/clustering-nlp-brazilian-laws-analysis-with-tf-idf-and-k-means-c0495c7c9c5f">🔗</a>
     </td>
     <td>
-      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+      <img src="https://img.shields.io/static/v1?label=NLP&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
       <a href="https://scikit-learn.org/stable/modules/clustering.html#clustering">
         <img src="https://img.shields.io/static/v1?label=SKLearn&labelColor=blue&message=Clustering&color=orange&style=flat&logo=SCIKITLEARN&logoColor=white"/>
       </a>
@@ -67,7 +67,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://towardsdatascience.com/understanding-topic-coherence-measures-4aa41339634c">🔗</a>
     </td>
     <td>
-      <img src="https://img.shields.io/static/v1?label=NLP&message=in Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+      <img src="https://img.shields.io/static/v1?label=NLP&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
       <a href="https://scikit-learn.org/stable/modules/clustering.html#clustering">
         <img src="https://img.shields.io/static/v1?label=NLP&labelColor=&message=Theory&color=c20000&style=flat&logo=GENSIM&logoColor=white"/>
       </a>
@@ -118,7 +118,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     <td>
         <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
         <img src="https://img.shields.io/static/v1?label=&message=Postgres&color=4169E1&style=flat&logo=POSTGRESQL&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/posts/tree/main/etl_spark_scholar_census">🔗</a>
@@ -135,9 +135,9 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     <td>
         <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=black&style=flat&logo=APACHEKAFKA&logoColor=white"/>
         <img src="https://img.shields.io/static/v1?label=&message=Postgres&color=4169E1&style=flat&logo=POSTGRESQL&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=Debezium&color=8fd049&style=flat&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=BentoML&color=f837b4&style=flat&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Debezium&color=8fd049&style=flat&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=BentoML&color=f837b4&style=flat&logoColor=white"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/ml-streming-kafka-cdc">🔗</a>
@@ -153,7 +153,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
     <td>
         <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=black&style=flat&logo=APACHEKAFKA&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=ksqlDB&color=eb5463&style=flat&"/>
+        <img src="https://img.shields.io/static/v1?label=&message=ksqlDB&color=eb5463&style=flat&"/>
         <img src="https://img.shields.io/static/v1?label=&message=MongoDB&color=47A248&style=flat&logo=MONGODB&logoColor=white"/>
     </td>
     <td align="center">
@@ -171,7 +171,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     <td>
         <img src="https://img.shields.io/static/v1?label=&message=Kafka&color=black&style=flat&logo=APACHEKAFKA&logoColor=white"/>
         <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/traffic-flow-spark-kafka">🔗</a>
@@ -187,7 +187,7 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
     <td>
         <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/spark-ml-first-steps">🔗</a>
@@ -202,8 +202,8 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://medium.com/@joaopedro214/temporal-and-geo-referenced-traffic-management-with-python-streamlit-2b9d596e4789">🔗</a>
     </td>
     <td>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= &message=Streamlit&color=fc4c4c&style=flat&logo=STREAMLIT&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Streamlit&color=fc4c4c&style=flat&logo=STREAMLIT&logoColor=white"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/traffic-dashboard-streamlit">🔗</a>
@@ -218,9 +218,9 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://medium.com/towards-data-science/hands-on-introduction-to-delta-lake-with-py-spark-b39460a4b1ae">🔗</a>
     </td>
     <td>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
         <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label=&message=Delta Lake&color=00ADD4&style=flat"/>
+        <img src="https://img.shields.io/static/v1?label=&message=DeltaLake&color=00ADD4&style=flat"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/posts">🔗</a>
@@ -235,11 +235,11 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
       <a href="https://medium.com/towards-data-science/creating-a-data-pipeline-with-spark-google-cloud-storage-and-big-query-a72ede294f4c">🔗</a>
     </td>
     <td>
-        <img src="https://img.shields.io/static/v1?label= &message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=Python&color=3776AB&style=flat&logo=PYTHON&logoColor=white"/>
         <img src="https://img.shields.io/static/v1?label=&message=Spark&color=E25A1C&style=flat&logo=APACHESPARK&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label=&message=Delta Lake&color=00ADD4&style=flat"/>
-        <img src="https://img.shields.io/static/v1?label= GCP&message=Storage&color=2074EC&style=flat&logo=GOOGLECLOUD&logoColor=white"/>
-        <img src="https://img.shields.io/static/v1?label= GCP&message=BigQuery&color=2074EC&style=flat&logo=GOOGLECLOUD&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=&message=DeltaLake&color=00ADD4&style=flat"/>
+        <img src="https://img.shields.io/static/v1?label=GCP&message=Storage&color=2074EC&style=flat&logo=GOOGLECLOUD&logoColor=white"/>
+        <img src="https://img.shields.io/static/v1?label=GCP&message=BigQuery&color=2074EC&style=flat&logo=GOOGLECLOUD&logoColor=white"/>
     </td>
     <td align="center">
       <a href="https://github.com/jaumpedro214/posts">🔗</a>
