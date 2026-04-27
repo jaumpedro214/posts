@@ -350,4 +350,4 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
 </tbody>
 </table>
 
-\* <img src="https://img.shields.io/static/v1?label= &message=Docker&color=2496ed&style=flat&logo=DOCKER&logoColor=white"/> Is used in almost every project
+\* <img src="https://img.shields.io/static/v1?label=&message=Docker&color=2496ed&style=flat&logo=DOCKER&logoColor=white"/> Is used in almost every project
