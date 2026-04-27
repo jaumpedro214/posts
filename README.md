@@ -331,6 +331,22 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
 
+  <tr>
+    <td>
+      DuckLake: A new face for DuckDB
+    </td>
+    <td align="center">
+      <a href="https://joaopedro214.medium.com/ducklake-a-new-face-for-duckdb-295fc382894e">🔗</a>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=DuckDB&color=FFF000&style=flat&logo=DuckDB&logoColor=black"/>
+    </td>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts/tree/main/duck_lake_first_look">🔗</a>
+    </td>
+  </tr>
+
+
 </tbody>
 </table>
 
