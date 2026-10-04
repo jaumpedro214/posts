@@ -2,12 +2,15 @@ import os
 import zipfile
 import logging
 import argparse
+from typing import Optional
 
 # -----------------------
 # CONFIG
 # -----------------------
 SOURCE_PATH = "./data/files"
 DEST_PATH = "./data/extracted"
+SOURCE_ENCODING = "latin-1"
+DEST_ENCODING = "utf-8"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -38,6 +41,30 @@ def extract_file(zip_path: str, dest_path: str):
         zf.extractall(dest_path)
 
 
+# -----------------------
+# ENCODING
+# -----------------------
+def convert_encoding(file_path: str, logger: Optional[logging.Logger] = None):
+    with open(file_path, "r", encoding=SOURCE_ENCODING) as f:
+        content = f.read()
+    with open(file_path, "w", encoding=DEST_ENCODING) as f:
+        f.write(content)
+
+
+def convert_dir_encoding(directory: str, logger: Optional[logging.Logger] = None):
+    for root, _, files in os.walk(directory):
+        for name in files:
+            if not name.lower().endswith(".csv"):
+                continue
+
+            file_path = os.path.join(root, name)
+            try:
+                convert_encoding(file_path)
+            except UnicodeDecodeError as e:
+                if logger:
+                    logger.warning(f"[SKIP] Encoding: {file_path} -> {e}")
+
+
 def run():
     if not os.path.exists(SOURCE_PATH):
         logger.error(f"Source path does not exist: {SOURCE_PATH}")
@@ -60,6 +87,8 @@ def run():
 
         try:
             extract_file(zip_path, dest_dir)
+            logger.info(f"[START] Encoding: {relative}")
+            convert_dir_encoding(dest_dir, logger)
             logger.info(f"[OK] {relative}")
         except Exception as e:
             logger.error(f"[ERROR] {relative} -> {e}")
