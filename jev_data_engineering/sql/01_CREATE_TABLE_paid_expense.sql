@@ -1,4 +1,4 @@
-CREATE TABLE paid_expense AS (
+CREATE TABLE IF NOT EXISTS paid_expense AS (
     SELECT
         *
     FROM read_csv(
