@@ -2,3 +2,5 @@
 *.csv
 *.pdf
 *.duckdb
+*.parquet
+*.sqlite
