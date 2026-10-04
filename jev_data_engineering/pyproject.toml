@@ -1,0 +1,9 @@
+[project]
+name = "jev-data-engineering"
+version = "0.1.0"
+description = "Testing JEV in a Data Pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.34.2",
+]
