@@ -1,5 +1,6 @@
-import requests
+import httpx
 import os
+import asyncio
 from dataclasses import dataclass
 from dotenv import load_dotenv
 
@@ -12,7 +13,7 @@ class JevClassificationResult:
     tag: str
     confidence: str
 
-def classify_expense_with_jev(description: str) -> JevClassificationResult:
+async def classify_expense_with_jev(description: str) -> JevClassificationResult:
 
     api_key = os.environ.get("TYPESAFE_API_KEY")
 
@@ -45,21 +46,24 @@ def classify_expense_with_jev(description: str) -> JevClassificationResult:
         }
     }
 
-    response = requests.post(
-        base_url,
-        json=payload,
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-    ).json()
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            base_url,
+            json=payload,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+        )
+        response.raise_for_status()
+        data = response.json()
 
     return JevClassificationResult(
         description=description,
-        tag=response['answers']['tag']['choice'],
-        confidence=response['answers']['tag']['confidence']
+        tag=data['answers']['tag']['choice'],
+        confidence=data['answers']['tag']['confidence']
     )
 
 if __name__ == "__main__":
-    expense_class = classify_expense_with_jev('33 LATAS DE GUARAMIX')
+    expense_class = asyncio.run(classify_expense_with_jev('33 LATAS DE GUARAMIX'))
     print(expense_class)
