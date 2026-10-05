@@ -2,6 +2,7 @@ import httpx
 import os
 import asyncio
 import logging
+import time
 from dataclasses import dataclass
 from dotenv import load_dotenv
 from database import get_db_connection, ALIAS
@@ -14,6 +15,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s"
 )
 logger = logging.getLogger(__name__)
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 SQL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
 
@@ -158,10 +160,17 @@ async def classify(batch_size: int = 500, max_concurrency: int = 50):
                     *(classify_limited(description) for description in descriptions)
                 )
 
+                logger.info(f"[BATCH {batch}] Inserting {len(results)} rows...")
+
+                insert_start = time.perf_counter()
                 insert_classified_records(db, results)
+                insert_elapsed = time.perf_counter() - insert_start
 
                 total += len(results)
-                logger.info(f"[BATCH {batch}] Inserted {len(results)} rows (total: {total})")
+                logger.info(
+                    f"[BATCH {batch}] Inserted {len(results)} rows in {insert_elapsed:.2f}s "
+                    f"(total: {total})"
+                )
 
             logger.info(f"Done. Total classified: {total}")
         except Exception as e:
@@ -172,4 +181,4 @@ async def classify(batch_size: int = 500, max_concurrency: int = 50):
 
 
 if __name__ == "__main__":
-    asyncio.run(classify(max_concurrency=10))
+    asyncio.run(classify(max_concurrency=20, batch_size=10_000))
