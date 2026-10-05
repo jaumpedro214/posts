@@ -7,8 +7,8 @@ from pathlib import Path
 # CONFIG
 # -----------------------
 DATA_PATH     = Path("./data/duckdb")
-DATABASE_PATH = Path("./data/database.duckdb")
-METADATA_PATH = Path("./data/metadata.sqlite")
+DATABASE_PATH = Path("./data/duckdb/database.duckdb")
+METADATA_PATH = Path("./data/duckdb/metadata.sqlite")
 ALIAS = "expenses"
 
 # -----------------------

@@ -11,8 +11,8 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_DIR"
 
-DATABASE_PATH="./data/database.duckdb"
-METADATA_PATH="./data/metadata.sqlite"
+DATABASE_PATH="./data/duckdb/database.duckdb"
+METADATA_PATH="./data/duckdb/metadata.sqlite"
 DATA_PATH="data/duckdb/"
 ALIAS="expenses"
 
