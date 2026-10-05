@@ -4,7 +4,7 @@ import asyncio
 import logging
 from dataclasses import dataclass
 from dotenv import load_dotenv
-from database import get_db_connection
+from database import get_db_connection, ALIAS
 import duckdb
 
 load_dotenv()
@@ -91,20 +91,24 @@ async def classify_expense_with_jev(
 
 def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 10_000):
     # The pending descriptions are materialized into the
-    # `descriptions_to_classify` table by the SQL script, so we can stream
-    # from it without holding a cursor over a table that is being written to
-    # (DuckDB destroys an in-progress scan when another statement runs on the
-    # same connection).
-    cursor = db.cursor()
-    cursor.execute("SELECT DS_DESPESA FROM expenses.descriptions_to_classify")
+    # `descriptions_to_classify` table by the SQL script. We paginate with
+    # LIMIT/OFFSET (re-running the query for each batch) instead of keeping a
+    # cursor open, because an active scan blocks the DuckLake commits of the
+    # inserts and raises "database is locked".
+    offset = 0
 
     while True:
-        rows = cursor.fetchmany(batch_size)
+        rows = db.execute(
+            f"SELECT DS_DESPESA FROM {ALIAS}.descriptions_to_classify "
+            f"LIMIT {batch_size} OFFSET {offset}"
+        ).fetchall()
 
         if not rows:
             break
 
         yield [row[0] for row in rows]
+
+        offset += batch_size
 
 
 def insert_classified_records(
@@ -117,7 +121,7 @@ def insert_classified_records(
     )
 
 
-async def classify(batch_size: int = 1000, max_concurrency: int = 50):
+async def classify(batch_size: int = 500, max_concurrency: int = 50):
     db = get_db_connection()
     semaphore = asyncio.Semaphore(max_concurrency)
 
