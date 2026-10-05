@@ -1,10 +1,26 @@
 import httpx
 import os
 import asyncio
+import logging
 from dataclasses import dataclass
 from dotenv import load_dotenv
+from database import get_db_connection
+import duckdb
 
 load_dotenv()
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+SQL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
+
+
+def run_sql_file(db: duckdb.DuckDBPyConnection, filename: str):
+    with open(os.path.join(SQL_PATH, filename)) as f:
+        db.execute(f.read())
 
 
 @dataclass
@@ -13,12 +29,17 @@ class JevClassificationResult:
     tag: str
     confidence: str
 
-async def classify_expense_with_jev(description: str) -> JevClassificationResult:
+async def classify_expense_with_jev(
+    description: str,
+    client: httpx.AsyncClient,
+) -> JevClassificationResult:
 
     api_key = os.environ.get("TYPESAFE_API_KEY")
 
     if not api_key:
         raise ValueError('Error importing ENV Variables, TYPESAFE_API_KEY not found.')
+
+    logger.debug(f"[REQUEST] {description}")
 
     base_url = "https://api.typesafe.ai/v1/systemone"
     choices = {
@@ -46,24 +67,105 @@ async def classify_expense_with_jev(description: str) -> JevClassificationResult
         }
     }
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            base_url,
-            json=payload,
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
-        )
-        response.raise_for_status()
-        data = response.json()
+    response = await client.post(
+        base_url,
+        json=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+    )
+    response.raise_for_status()
+    data = response.json()
 
-    return JevClassificationResult(
+    result = JevClassificationResult(
         description=description,
         tag=data['answers']['tag']['choice'],
         confidence=data['answers']['tag']['confidence']
     )
 
+    logger.debug(f"[RESPONSE] {description} -> {result.tag} ({result.confidence})")
+
+    return result
+
+
+def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 10_000):
+    # The pending descriptions are materialized into the
+    # `descriptions_to_classify` table by the SQL script, so we can stream
+    # from it without holding a cursor over a table that is being written to
+    # (DuckDB destroys an in-progress scan when another statement runs on the
+    # same connection).
+    cursor = db.cursor()
+    cursor.execute("SELECT DS_DESPESA FROM expenses.descriptions_to_classify")
+
+    while True:
+        rows = cursor.fetchmany(batch_size)
+
+        if not rows:
+            break
+
+        yield [row[0] for row in rows]
+
+
+def insert_classified_records(
+    db: duckdb.DuckDBPyConnection,
+    records: list[JevClassificationResult],
+):
+    db.executemany(
+        "INSERT INTO jev_predicted_tag (description, tag, confidence) VALUES (?, ?, ?)",
+        [(r.description, r.tag, r.confidence) for r in records]
+    )
+
+
+async def classify(batch_size: int = 1000, max_concurrency: int = 50):
+    db = get_db_connection()
+    semaphore = asyncio.Semaphore(max_concurrency)
+
+    limits = httpx.Limits(
+        max_connections=max_concurrency,
+        max_keepalive_connections=max_concurrency,
+    )
+    timeout = httpx.Timeout(60.0)
+
+    async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+
+        async def classify_limited(description: str) -> JevClassificationResult:
+            async with semaphore:
+                return await classify_expense_with_jev(description, client)
+
+        try:
+            logger.info("Materializing descriptions to classify...")
+            run_sql_file(db, "04_SELECT_descriptions_to_classify.sql")
+
+            total = 0
+            batch = 0
+
+            for descriptions in fetch_unclassified_records(db, batch_size):
+                
+                if batch > 0:
+                    logger.info("Sleeping 5s before next batch...")
+                    await asyncio.sleep(5)
+
+                batch += 1
+
+                logger.info(f"[BATCH {batch}] Classifying {len(descriptions)} descriptions...")
+
+                results = await asyncio.gather(
+                    *(classify_limited(description) for description in descriptions)
+                )
+
+                insert_classified_records(db, results)
+
+                total += len(results)
+                logger.info(f"[BATCH {batch}] Inserted {len(results)} rows (total: {total})")
+
+            logger.info(f"Done. Total classified: {total}")
+        except Exception as e:
+            logger.error(f"[ERROR] {e}")
+            raise
+        finally:
+            db.close()
+
+
 if __name__ == "__main__":
-    expense_class = asyncio.run(classify_expense_with_jev('33 LATAS DE GUARAMIX'))
-    print(expense_class)
+    asyncio.run(classify(max_concurrency=10))
