@@ -1,3 +1,4 @@
+import asyncio
 import httpx
 import os
 import logging
@@ -13,16 +14,14 @@ BASE_URL = "https://api.typesafe.ai/v1/systemone"
 MODEL = "jev-latest"
 
 CHOICES = {
-    "Transport": "Transport-related expenses such as gasoline and car/bus rental",
-    "Online Advertising": "Online advertising campaigns, 'impulsionamento de campanha' (campaign boosting), social-media boosting and other services. Includes platforms such as Facebook, Instagram, TikTok, YouTube, Google, WhatsApp, etc.",
+    "Transport": "Expenses such as gasoline and car/bus rental",
+    "Online Advertising": "Online advertising campaigns, campaign boosting, social-media boosting and other services. Includes platforms such as Facebook, Instagram, TikTok, etc.",
     "Tariffs and taxes": "Tariffs and taxes related to the purchase of products or services such as water, gas and electricity. TED, DOC, PIX, boleto, bank fees, etc.",
     "Printed Material": "Newspapers, folders, banners, flags, stickers, 'santinhos', 'cola de votação', shirts, caps, among others",
-    "Hiring": "Expenses related to hiring staff such as drivers, secretaries, accountants, directors, cleaners, etc.",
+    "Hiring and Services": "Expenses related to hiring staff such as drivers, secretaries, accountants, directors, cleaners, lawyers, content production, song writting, video editor, etc.",
     "Food": "Food and drinks",
     "Physical Space": "Physical space rental or allocation",
     "Rallies and Actions": "Public actions, rallies and electoral parades. Hiring of 'cabo eleitoral'",
-    "Content Production": "Production of campaign content such as jingles, songs, artwork/graphics, videos, photos, social-media posts and other creative material",
-    "Legal and Administrative Support": "Legal and administrative support services such as lawyers, accounting and bookkeeping services, consulting, notary and registry fees, administrative/office services, etc.",
     "Consumer Electronics and Furniture": "Consumer electronics and furniture such as computers, microwaves, air conditioning, TVs, monitors, freezers, and general furniture such as chairs, tables, desks, cabinets, shelves, sofas, beds, among others",
     "Others": "None of the above categories",
 }
@@ -69,7 +68,7 @@ async def classify_expense_with_jev(
     )
     response.raise_for_status()
     data = response.json()
-
+    
     result = JevClassificationResult(
         description=description,
         tag=data['answers']['tag']['choice'],
@@ -79,3 +78,14 @@ async def classify_expense_with_jev(
     logger.debug(f"[RESPONSE] {description} -> {result.tag} ({result.confidence})")
 
     return result
+
+
+async def _integration_test() -> None:
+    description = "Compra de gasolina para carro da campanha"
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        result = await classify_expense_with_jev(description, client)
+    print(result)
+
+
+if __name__ == "__main__":
+    asyncio.run(_integration_test())
