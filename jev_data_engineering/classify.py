@@ -29,7 +29,7 @@ def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 
 
     while True:
         rows = db.execute(
-            f"SELECT DS_DESPESA FROM {ALIAS}.descriptions_to_classify "
+            f"SELECT DS_DESPESA FROM {ALIAS}.expenses_to_classify_with_jev "
             f"LIMIT {batch_size} OFFSET {offset}"
         ).fetchall()
 
@@ -91,7 +91,7 @@ async def classify_descriptions_in_batch(db: duckdb.DuckDBPyConnection, batch_si
                 return await classify_expense_with_jev(description, client)
 
         logger.info("Materializing descriptions to classify...")
-        run_sql_file(db, "04_SELECT_descriptions_to_classify.sql")
+        run_sql_file(db, "04_SELECT_expenses_to_classify_with_jev.sql")
 
         total = 0
         batch = 0

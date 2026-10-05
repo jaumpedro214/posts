@@ -30,6 +30,8 @@ def execute_sql_file(con: duckdb.DuckDBPyConnection, sql_file: str):
 def run(sql_files: list[str]):
     con = get_db_connection()
 
+    failed = []
+
     try:
         for sql_file in sql_files:
             if not os.path.isabs(sql_file):
@@ -43,8 +45,12 @@ def run(sql_files: list[str]):
                 logger.info(f"[OK] {name}")
             except Exception as e:
                 logger.error(f"[ERROR] {name} -> {e}")
+                failed.append(name)
     finally:
         con.close()
+
+    if failed:
+        raise SystemExit(1)
 
 
 # -----------------------
