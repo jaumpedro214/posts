@@ -12,15 +12,15 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 CHOICES = {
     "Transport": "Gasoline, car/bus rental",
-    "Online Advertising": "Online ads, boosting; Facebook, Instagram, TikTok",
-    "Tariffs and taxes": "Utility bills (water, gas, electricity), TED, DOC, PIX, boleto, bank fees",
-    "Printed Material": "Newspapers, folders, banners, flags, stickers, santinhos, cola de votação, shirts, caps",
-    "Hiring and Services": "Hiring staff: drivers, secretaries, accountants, cleaners, lawyers, content/video/song production",
+    "Online Advertising": "Online ads, boosting, paid traffic; Facebook, Instagram, TikTok",
+    "Tariffs and taxes": "Utility bills (water, gas, electricity, internet), TED, DOC, PIX, boleto, bank fees",
+    "Printed Material": "Folders, banners, flags, preguinhas, adesivos, santinhos, colinhas/cola de votação, shirts, caps",
+    "Hiring and Services": "Hiring staff: Coordinator, accountants, cleaners, lawyers, content/video/song/jingle production, marketing and social media services",
     "Food": "Food and drinks",
     "Physical Space": "Physical space rental",
-    "Rallies and Actions": "Rallies, parades, public actions, cabo eleitoral",
-    "Consumer Electronics and Furniture": "Computers, microwaves, AC, TVs, freezers; chairs, desks, shelves, sofas",
-    "Others": "None of the other",
+    "Rallies and Actions": "Rallies, parades, public actions, militancia, cabo eleitoral",
+    "Electronics Furniture Office": "Computers, microwaves, AC, TVs, freezers; chairs, desks, shelves, sofas; office supplies",
+    "Others": "None of the other or ambiguous",
 }
 
 
