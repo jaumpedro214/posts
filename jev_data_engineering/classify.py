@@ -6,7 +6,7 @@ import logging
 import time
 import tempfile
 from database import get_db_connection, ALIAS
-from classification.jev import JevClassificationResult, classify_expense_with_jev
+from classification.jev import CHOICES, ClassificationResult, jev_classification
 import duckdb
 
 logging.basicConfig(
@@ -41,14 +41,14 @@ def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 
         offset += batch_size
 
 
-def dump_records_as_csv_temp_file(records: list[JevClassificationResult]) -> str:
+def dump_records_as_csv_temp_file(records: list[ClassificationResult]) -> str:
     fd, tmp_path = tempfile.mkstemp(suffix=".csv")
 
     with os.fdopen(fd, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow(["description", "tag", "confidence"])
+        writer.writerow(["text", "classification", "confidence"])
         writer.writerows(
-            (r.description, r.tag, r.confidence) for r in records
+            (r.text, r.classification, r.confidence) for r in records
         )
 
     return tmp_path
@@ -56,7 +56,7 @@ def dump_records_as_csv_temp_file(records: list[JevClassificationResult]) -> str
 
 def insert_classified_records(
     db: duckdb.DuckDBPyConnection,
-    records: list[JevClassificationResult],
+    records: list[ClassificationResult],
 ):
     if not records:
         return
@@ -66,8 +66,8 @@ def insert_classified_records(
     try:
         db.execute(
             f"""
-            INSERT INTO expenses_classified_by_jev (description, tag, confidence)
-            SELECT description, tag, confidence
+            INSERT INTO expenses_classified_by_jev (description, classification, confidence)
+            SELECT text, classification, confidence
             FROM read_csv('{tmp_path}', header=true, delim=',')
             """
         )
@@ -86,9 +86,9 @@ async def classify_descriptions_in_batch(db: duckdb.DuckDBPyConnection, batch_si
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
 
-        async def classify_limited(description: str) -> JevClassificationResult:
+        async def classify_limited(description: str) -> ClassificationResult:
             async with semaphore:
-                return await classify_expense_with_jev(description, client)
+                return await jev_classification(description, client, CHOICES)
 
         logger.info("Materializing descriptions to classify...")
         run_sql_file(db, "04_SELECT_expenses_to_classify_with_jev.sql")
