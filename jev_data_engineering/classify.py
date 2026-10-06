@@ -66,7 +66,7 @@ def insert_classified_records(
     try:
         db.execute(
             f"""
-            INSERT INTO classified_by_jev (description, tag, confidence)
+            INSERT INTO expenses_classified_by_jev (description, tag, confidence)
             SELECT description, tag, confidence
             FROM read_csv('{tmp_path}', header=true, delim=',')
             """

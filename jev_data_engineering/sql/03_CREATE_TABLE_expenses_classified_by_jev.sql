@@ -1,4 +1,4 @@
-CREATE TABLE classified_by_jev (
+CREATE TABLE expenses_classified_by_jev (
     description VARCHAR NOT NULL,
     tag VARCHAR,
     confidence DOUBLE,
