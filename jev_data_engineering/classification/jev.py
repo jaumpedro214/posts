@@ -13,6 +13,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 CHOICES = {
     "Transport": "Gasoline, car/bus rental",
     "Online Advertising": "Online ads, boosting, paid traffic; Facebook, Instagram, TikTok",
+    "Press, Radio and TV": "Paid advertising in offline media: newspaper/magazine ads and inserts, radio spots, TV spots/programs, emissora, outdoor in press",
     "Tariffs and taxes": "Utility bills (water, gas, electricity, internet), TED, DOC, PIX, boleto, bank fees",
     "Printed Material": "Folders, banners, flags, preguinhas, adesivos, santinhos, colinhas/cola de votação, shirts, caps",
     "Hiring and Services": "Hiring staff: Coordinator, accountants, cleaners, lawyers, content/video/song/jingle production, marketing and social media services",
