@@ -34,3 +34,21 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
     con.execute(f"USE {ALIAS}")
 
     return con
+
+
+# -----------------------
+# SQL FILES
+# -----------------------
+SQL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
+
+
+def run_sql_script(con: duckdb.DuckDBPyConnection, sql_file: str) -> None:
+    """Execute a SQL script from disk.
+
+    `sql_file` may be an absolute path or a name relative to the sql/ directory.
+    """
+    if not os.path.isabs(sql_file):
+        sql_file = os.path.join(SQL_PATH, sql_file)
+
+    with open(sql_file, "r", encoding="utf-8") as f:
+        con.execute(f.read())

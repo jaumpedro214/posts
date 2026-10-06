@@ -1,14 +1,6 @@
-import os
 import logging
-import argparse
-import duckdb
 
-from database import get_db_connection
-
-# -----------------------
-# CONFIG
-# -----------------------
-SQL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
+from database import get_db_connection, run_sql_script
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,58 +8,36 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# -----------------------
+# CONFIG
+# -----------------------
+SCRIPTS = [
+    "01_CREATE_TABLE_paid_expense.sql",
+    "02_CREATE_TABLE_expense_description.sql",
+    "03_CREATE_TABLE_expenses_classified_by_jev.sql",
+    "04_CREATE_TABLE_expense_classified_by_rules.sql",
+    "04_SELECT_expenses_to_classify_with_jev.sql",
+]
+
 
 # -----------------------
 # SQL
 # -----------------------
-def execute_sql_file(con: duckdb.DuckDBPyConnection, sql_file: str):
-    with open(sql_file, "r") as f:
-        sql = f.read()
-
-    con.execute(sql)
-
-
 def run(sql_files: list[str]):
     con = get_db_connection()
 
-    failed = []
-
     try:
         for sql_file in sql_files:
-            if not os.path.isabs(sql_file):
-                sql_file = os.path.join(SQL_PATH, sql_file)
-
-            name = os.path.relpath(sql_file, SQL_PATH)
-            logger.info(f"[START] {name}")
-
+            logger.info(f"[START] {sql_file}")
             try:
-                execute_sql_file(con, sql_file)
-                logger.info(f"[OK] {name}")
+                run_sql_script(con, sql_file)
+                logger.info(f"[OK] {sql_file}")
             except Exception as e:
-                logger.error(f"[ERROR] {name} -> {e}")
-                failed.append(name)
+                logger.error(f"[ERROR] {sql_file} -> {e}")
+                raise SystemExit(1)
     finally:
         con.close()
 
-    if failed:
-        raise SystemExit(1)
 
-
-# -----------------------
-# CLI
-# -----------------------
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Executor de scripts SQL no DuckDB")
-
-    parser.add_argument("sql_files", nargs="*", help="Arquivos SQL a executar (relativos a sql/)")
-
-    args = parser.parse_args()
-
-    if args.sql_files:
-        run(args.sql_files)
-    else:
-        run(sorted(
-            os.path.join(SQL_PATH, name)
-            for name in os.listdir(SQL_PATH)
-            if name.endswith(".sql")
-        ))
+    run(SCRIPTS)

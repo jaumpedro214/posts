@@ -5,7 +5,7 @@ import asyncio
 import logging
 import time
 import tempfile
-from database import get_db_connection, ALIAS
+from database import get_db_connection, ALIAS, run_sql_script
 from classification.jev import CHOICES, ClassificationResult, jev_classification
 import duckdb
 
@@ -16,21 +16,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-SQL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
-
-
-def run_sql_file(db: duckdb.DuckDBPyConnection, filename: str):
-    with open(os.path.join(SQL_PATH, filename)) as f:
-        db.execute(f.read())
-
-
-def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 10_000):
+def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 10_000, max_records: int = None):
+    limit_clause = f"LIMIT {max_records}" if max_records is not None else ""
     offset = 0
 
     while True:
         rows = db.execute(
-            f"SELECT DS_DESPESA FROM {ALIAS}.expenses_to_classify_with_jev "
-            f"LIMIT {batch_size} OFFSET {offset}"
+            f"WITH unclassified AS ("
+            f"  SELECT DS_DESPESA FROM {ALIAS}.expenses_to_classify_with_jev {limit_clause}"
+            f") "
+            f"SELECT DS_DESPESA FROM unclassified LIMIT {batch_size} OFFSET {offset}"
         ).fetchall()
 
         if not rows:
@@ -75,7 +70,12 @@ def insert_classified_records(
         os.remove(tmp_path)
 
 
-async def classify_descriptions_in_batch(db: duckdb.DuckDBPyConnection, batch_size: int = 500, max_concurrency: int = 50):
+async def classify_descriptions_in_batch(
+        db: duckdb.DuckDBPyConnection, 
+        batch_size: int = 500, 
+        max_concurrency: int = 50, 
+        max_records: int = None
+    ):
     semaphore = asyncio.Semaphore(max_concurrency)
 
     limits = httpx.Limits(
@@ -91,12 +91,12 @@ async def classify_descriptions_in_batch(db: duckdb.DuckDBPyConnection, batch_si
                 return await jev_classification(description, client, CHOICES)
 
         logger.info("Materializing descriptions to classify...")
-        run_sql_file(db, "04_SELECT_expenses_to_classify_with_jev.sql")
+        run_sql_script(db, "04_SELECT_expenses_to_classify_with_jev.sql")
 
         total = 0
         batch = 0
 
-        for descriptions in fetch_unclassified_records(db, batch_size):
+        for descriptions in fetch_unclassified_records(db, batch_size, max_records):
 
             if batch > 0:
                 logger.info("Sleeping 5s before next batch...")
@@ -125,11 +125,11 @@ async def classify_descriptions_in_batch(db: duckdb.DuckDBPyConnection, batch_si
         logger.info(f"Done. Total classified: {total}")
 
 
-async def main(batch_size: int = 10_000, max_concurrency: int = 20):
+async def main(batch_size: int = 10_000, max_concurrency: int = 20, max_records: int = None):
     db = get_db_connection()
 
     try:
-        await classify_descriptions_in_batch(db, batch_size=batch_size, max_concurrency=max_concurrency)
+        await classify_descriptions_in_batch(db, batch_size=batch_size, max_concurrency=max_concurrency, max_records=max_records)
     except Exception as e:
         logger.error(f"[ERROR] {e}")
         raise
@@ -138,4 +138,4 @@ async def main(batch_size: int = 10_000, max_concurrency: int = 20):
 
 
 if __name__ == "__main__":
-    asyncio.run(main(batch_size=5_000,  max_concurrency = 30))
+    asyncio.run(main(batch_size=5_000,  max_concurrency = 30, max_records=100))

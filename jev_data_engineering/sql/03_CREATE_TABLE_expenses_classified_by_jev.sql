@@ -1,4 +1,4 @@
-CREATE TABLE expenses_classified_by_jev (
+CREATE TABLE IF NOT EXISTS expenses_classified_by_jev (
     description VARCHAR NOT NULL,
     classification VARCHAR,
     confidence DOUBLE,
