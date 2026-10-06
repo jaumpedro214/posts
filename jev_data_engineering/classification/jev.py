@@ -30,6 +30,7 @@ class ClassificationResult:
     text: str
     classification: str
     confidence: float | None = None
+    input_tokens: int | None = None
 
 
 async def jev_classification(
@@ -74,6 +75,7 @@ async def jev_classification(
         text=text,
         classification=data['answers']['tag']['choice'],
         confidence=data['answers']['tag'].get('confidence'),
+        input_tokens=data.get('usage', {}).get('input_tokens'),
     )
 
     logger.debug(f"[RESPONSE] {text} -> {result.classification} ({result.confidence})")
