@@ -127,6 +127,7 @@ async def classify_descriptions_in_batch(
 
 async def main(batch_size: int = 10_000, max_concurrency: int = 20, max_records: int = None):
     db = get_db_connection()
+    start = time.perf_counter()
 
     try:
         await classify_descriptions_in_batch(db, batch_size=batch_size, max_concurrency=max_concurrency, max_records=max_records)
@@ -135,7 +136,10 @@ async def main(batch_size: int = 10_000, max_concurrency: int = 20, max_records:
         raise
     finally:
         db.close()
+        elapsed = time.perf_counter() - start
+        minutes, seconds = divmod(elapsed, 60)
+        logger.info(f"Total time: {int(minutes)}m {seconds:.2f}s ({elapsed:.2f}s)")
 
 
 if __name__ == "__main__":
-    asyncio.run(main(batch_size=5_000,  max_concurrency = 30, max_records=100))
+    asyncio.run(main(batch_size=5_000,  max_concurrency = 30, max_records=100_000))
