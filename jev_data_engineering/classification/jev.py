@@ -19,8 +19,8 @@ CHOICES = {
     "Food": "Food and drinks",
     "Physical Space": "Physical space rental",
     "Rallies and Actions": "Rallies, parades, public actions, cabo eleitoral",
-    "Consumer Electronics and Furniture": "Computers, microwaves, AC, TVs, monitors, freezers; chairs, tables, desks, cabinets, shelves, sofas, beds",
-    "Others": "None of the above",
+    "Consumer Electronics and Furniture": "Computers, microwaves, AC, TVs, freezers; chairs, desks, shelves, sofas",
+    "Others": "None of the other",
 }
 
 
