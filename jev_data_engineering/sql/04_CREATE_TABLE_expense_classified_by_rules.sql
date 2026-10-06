@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS expense_classified_by_rules AS (
             CASE
                 WHEN
                     ds_despesa ilike '%gasolina%'
-                    OR     ds_despesa ilike '%panflet%'
                     OR     ds_despesa ilike '%veiculo%'
                     OR     ds_despesa ilike '%veículo%'
                     OR     ds_despesa ilike '%carro%'
@@ -16,6 +15,7 @@ CREATE TABLE IF NOT EXISTS expense_classified_by_rules AS (
 
                 WHEN 
                     ds_despesa ilike '%adesiv%'
+                    OR     ds_despesa ilike '%panflet%'
                     OR     ds_despesa ilike '%santinho%'
                     OR     ds_despesa ilike '%bandeir%'
                     OR     ds_despesa ilike '%impress%'
