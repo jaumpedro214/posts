@@ -1,4 +1,4 @@
-CREATE TABLE jev_predicted_tag (
+CREATE TABLE classified_by_jev (
     description VARCHAR NOT NULL,
     tag VARCHAR,
     confidence DOUBLE,
