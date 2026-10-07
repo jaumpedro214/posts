@@ -9,4 +9,4 @@ CREATE OR REPLACE TABLE expenses_to_classify_with_jev AS (
     AND DS_DESPESA NOT IN (
         SELECT description FROM expenses_classified_by_jev
     )
-)
+);
