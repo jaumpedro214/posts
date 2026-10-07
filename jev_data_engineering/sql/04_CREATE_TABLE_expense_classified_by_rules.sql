@@ -3,16 +3,6 @@ CREATE TABLE IF NOT EXISTS expense_classified_by_rules AS (
         SELECT 
             DS_DESPESA,
             CASE
-                WHEN
-                    ds_despesa ilike '%gasolina%'
-                    OR     ds_despesa ilike '%veiculo%'
-                    OR     ds_despesa ilike '%veículo%'
-                    OR     ds_despesa ilike '%carro%'
-                    OR     ds_despesa ilike '%combustivel%'
-                    OR     ds_despesa ilike '%combustível%'
-                    OR     ds_despesa ilike '%moto%'
-                THEN 'Transport'
-
                 WHEN 
                     ds_despesa ilike '%adesiv%'
                     OR     ds_despesa ilike '%panflet%'
@@ -27,6 +17,16 @@ CREATE TABLE IF NOT EXISTS expense_classified_by_rules AS (
                     OR     ds_despesa ilike '%bone%'
                     OR     ds_despesa ilike '%camisa%'
                 THEN 'Printed Material'
+
+                WHEN
+                    ds_despesa ilike '%gasolina%'
+                    OR     ds_despesa ilike '%veiculo%'
+                    OR     ds_despesa ilike '%veículo%'
+                    OR     ds_despesa ilike '%carro%'
+                    OR     ds_despesa ilike '%combustivel%'
+                    OR     ds_despesa ilike '%combustível%'
+                    OR     ds_despesa ilike '%moto%'
+                THEN 'Transport'
 
                 WHEN 
                     ds_despesa ilike '%facebook%' 
