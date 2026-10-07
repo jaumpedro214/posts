@@ -9,7 +9,7 @@ from pathlib import Path
 DATA_PATH     = Path("./data/duckdb")
 DATABASE_PATH = Path("./data/duckdb/database.duckdb")
 METADATA_PATH = Path("./data/duckdb/metadata.sqlite")
-ALIAS = "expenses"
+DATABASE_NAME = "expenses"
 
 # -----------------------
 # CONNECTION
@@ -26,12 +26,12 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
 
     con.execute(
         f"""
-        ATTACH 'ducklake:sqlite:{METADATA_PATH}' AS {ALIAS}
+        ATTACH 'ducklake:sqlite:{METADATA_PATH}' AS {DATABASE_NAME}
             (DATA_PATH '{DATA_PATH}')
         """
     )
 
-    con.execute(f"USE {ALIAS}")
+    con.execute(f"USE {DATABASE_NAME}")
 
     return con
 

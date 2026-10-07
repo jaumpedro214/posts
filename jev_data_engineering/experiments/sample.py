@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import duckdb
 
-from database import get_db_connection, ALIAS
+from database import get_db_connection, DATABASE_NAME
 
 TABLE = "expenses_to_classify_with_jev"
 SAMPLE_SIZE = 1000
@@ -24,7 +24,7 @@ def sample_records_from_table(
             f"""
             COPY (
                 SELECT DS_DESPESA AS text
-                FROM {ALIAS}.{table}
+                FROM {DATABASE_NAME}.{table}
                 USING SAMPLE {records} ROWS (reservoir)
             )
             TO '{output_path}' (FORMAT json, ARRAY true)

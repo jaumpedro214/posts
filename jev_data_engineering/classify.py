@@ -5,7 +5,7 @@ import asyncio
 import logging
 import time
 import tempfile
-from database import get_db_connection, ALIAS, run_sql_script
+from database import get_db_connection, DATABASE_NAME, run_sql_script
 from classification.jev import CHOICES, ClassificationResult, jev_classification
 import duckdb
 
@@ -23,7 +23,7 @@ def fetch_unclassified_records(db: duckdb.DuckDBPyConnection, batch_size: int = 
     while True:
         rows = db.execute(
             f"WITH unclassified AS ("
-            f"  SELECT DS_DESPESA FROM {ALIAS}.expenses_to_classify_with_jev {limit_clause}"
+            f"  SELECT DS_DESPESA FROM {DATABASE_NAME}.expenses_to_classify_with_jev {limit_clause}"
             f") "
             f"SELECT DS_DESPESA FROM unclassified LIMIT {batch_size} OFFSET {offset}"
         ).fetchall()
@@ -61,7 +61,7 @@ def insert_classified_records(
     try:
         db.execute(
             f"""
-            INSERT INTO expenses_classified_by_jev (description, classification, confidence)
+            INSERT INTO {DATABASE_NAME}.expenses_classified_by_jev (description, classification, confidence)
             SELECT text, classification, confidence
             FROM read_csv('{tmp_path}', header=true, delim=',')
             """
