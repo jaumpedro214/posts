@@ -86,14 +86,24 @@ async def classify_descriptions_in_batch(
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
 
-        async def classify_limited(description: str) -> ClassificationResult:
+        async def classify_limited(description: str) -> ClassificationResult | None:
+            """Classifica uma descrição, devolvendo None em caso de erro.
+
+            Qualquer erro da API (HTTP, timeout, rede, payload inesperado) é
+            registrado e ignorado: a descrição não entra nos resultados.
+            """
             async with semaphore:
-                return await jev_classification(description, client, CHOICES)
+                try:
+                    return await jev_classification(description, client, CHOICES)
+                except Exception as e:
+                    logger.warning(f"[SKIP] Error for {description[:80]!r}: {e}")
+                return None
 
         logger.info("Materializing descriptions to classify...")
         run_sql_script(db, "04_CREATE_TABLE_expenses_to_classify_with_jev.sql")
 
         total = 0
+        total_errors = 0
         batch = 0
 
         for descriptions in fetch_unclassified_records(db, batch_size, max_records):
@@ -110,19 +120,30 @@ async def classify_descriptions_in_batch(
                 *(classify_limited(description) for description in descriptions)
             )
 
-            logger.info(f"[BATCH {batch}] Inserting {len(results)} rows...")
+            # Remove os erros (None) antes de inserir
+            valid_results = [r for r in results if r is not None]
+            skipped = len(results) - len(valid_results)
+            total_errors += skipped
+
+            if skipped:
+                logger.warning(
+                    f"[BATCH {batch}] Skipped {skipped} failed request(s), "
+                    f"keeping {len(valid_results)} valid result(s)."
+                )
+
+            logger.info(f"[BATCH {batch}] Inserting {len(valid_results)} rows...")
 
             insert_start = time.perf_counter()
-            insert_classified_records(db, results)
+            insert_classified_records(db, valid_results)
             insert_elapsed = time.perf_counter() - insert_start
 
-            total += len(results)
+            total += len(valid_results)
             logger.info(
-                f"[BATCH {batch}] Inserted {len(results)} rows in {insert_elapsed:.2f}s "
+                f"[BATCH {batch}] Inserted {len(valid_results)} rows in {insert_elapsed:.2f}s "
                 f"(total: {total})"
             )
 
-        logger.info(f"Done. Total classified: {total}")
+        logger.info(f"Done. Total classified: {total} (skipped due to errors: {total_errors})")
 
 
 async def main(batch_size: int = 10_000, max_concurrency: int = 20, max_records: int = None):
@@ -142,4 +163,4 @@ async def main(batch_size: int = 10_000, max_concurrency: int = 20, max_records:
 
 
 if __name__ == "__main__":
-    asyncio.run(main(batch_size=5_000,  max_concurrency = 30, max_records=100_000))
+    asyncio.run(main(batch_size=5_000,  max_concurrency = 10, max_records=100_000))
