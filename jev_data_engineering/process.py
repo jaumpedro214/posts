@@ -20,7 +20,8 @@ SCRIPTS = [
     "04_CREATE_TABLE_expenses_to_classify_with_jev.sql",
     "05_CREATE_VIEW_expense_classified_by_jev_accepted.sql",
 
-    "06_CREATE_TABLE_paid_expense_classified.sql"
+    "06_CREATE_TABLE_paid_expense_classified.sql",
+    "07_CREATE_TABLE_expenses_report.sql"
 ]
 
 
