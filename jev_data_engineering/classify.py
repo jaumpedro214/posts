@@ -91,7 +91,7 @@ async def classify_descriptions_in_batch(
                 return await jev_classification(description, client, CHOICES)
 
         logger.info("Materializing descriptions to classify...")
-        run_sql_script(db, "04_SELECT_expenses_to_classify_with_jev.sql")
+        run_sql_script(db, "04_CREATE_TABLE_expenses_to_classify_with_jev.sql")
 
         total = 0
         batch = 0
