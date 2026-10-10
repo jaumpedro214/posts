@@ -11,47 +11,39 @@ AND (
     OR
     (
         classification = 'Food'
-        AND confidence > 0.7
     )
     OR
     (
         classification = 'Hiring and Services'
-        AND confidence > 0.4
     )
     OR
     (
         classification = 'Online Advertising'
-        AND confidence > 0.7
     )
     OR
     (
         classification = 'Physical Space'
-        AND confidence > 0.0
     )
     OR
     (
         classification = 'Press, Radio and TV'
-        AND confidence > 0.0
+        AND confidence > 0.95
     )
     OR
     (
         classification = 'Printed Material'
-        AND confidence > 0.6
     )
     OR
     (
         classification = 'Rallies and Actions'
-        AND confidence > 0.5
     )
     OR
     (
         classification = 'Tariffs and taxes'
-        AND confidence > 0.0
     )
     OR
     (
         classification = 'Transport'
-        AND confidence > 0.0
     )
 
 );

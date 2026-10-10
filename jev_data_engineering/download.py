@@ -9,7 +9,7 @@ from typing import Dict, Any, List
 # -----------------------
 BASE_PATH = "./data/files"
 
-anos = list(range(2018, 2026 + 1, 2))
+anos = [2026]
 
 logging.basicConfig(
     level=logging.INFO,
