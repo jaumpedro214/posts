@@ -1,0 +1,12 @@
+[project]
+name = "jev-data-engineering"
+version = "0.1.0"
+description = "Testing JEV in a Data Pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb>=1.5.6",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.2.4",
+    "requests>=2.34.2",
+]
