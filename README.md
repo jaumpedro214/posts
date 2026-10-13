@@ -346,6 +346,23 @@ You can visit my <a href="https://medium.com/@joaopedro214">Medium profile</a> t
     </td>
   </tr>
 
+  <tr>
+    <td>
+      We need to talk about JEV (in data pipelines)
+    </td>
+    <td align="center">
+      <a href="https://medium.com/data-engineer-things/we-need-to-talk-about-jev-in-data-pipelines-96ba147bfcc6">🔗</a>
+    <td>
+        <img src="https://img.shields.io/static/v1?label=&message=DuckDB&color=FFF000&style=flat&logo=DuckDB&logoColor=black"/>
+        <img src="https://img.shields.io/static/v1?label=TypeSafeAI&message=JEV&color=e452ba&style=flat&logoColor=black"/>
+    </td>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jaumpedro214/posts/tree/main/jev_data_engineering">🔗</a>
+    </td>
+  </tr>
+  
+
 
 </tbody>
 </table>
